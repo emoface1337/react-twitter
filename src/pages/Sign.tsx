@@ -1,12 +1,7 @@
-import React, {useState} from 'react'
+import React, { FC, ReactElement, useState } from 'react'
 
-import {
-    Button, FormGroup,
-    makeStyles,
-    TextField,
-    Typography
-} from '@material-ui/core'
-import {Twitter} from '@material-ui/icons'
+import { Button, FormGroup, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Twitter } from '@material-ui/icons'
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined'
@@ -76,7 +71,7 @@ const useStyles = makeStyles(() => ({
     }
 ))
 
-const Sign = () => {
+const Sign: FC = (): ReactElement => {
 
     const classes = useStyles()
 
@@ -122,13 +117,13 @@ const Sign = () => {
                     <Typography><b>Присоединяйтесь к Твиттеру прямо сейчас!</b></Typography>
                     <br/>
                     <Button onClick={handleClickOpenSignUp} variant="contained" color="primary" fullWidth
-                            style={{marginBottom: 20}}>Зарегистрироваться</Button>
+                            style={{ marginBottom: 20 }}>Зарегистрироваться</Button>
                     <Button onClick={handleClickOpenSignIn} variant="outlined" color="primary" fullWidth>Войти</Button>
                     <Modal title="Войти в аккаунт" visible={visibleModal === 'signIn'} onClose={handleClose}>
                         <FormGroup>
                             <TextField
                                 autoFocus
-                                style={{marginBottom: 20}}
+                                style={{ marginBottom: 20 }}
                                 id="email"
                                 label="Почта"
                                 type="email"
@@ -138,7 +133,7 @@ const Sign = () => {
                                 variant="filled"
                             />
                             <TextField
-                                style={{marginBottom: 20}}
+                                style={{ marginBottom: 20 }}
                                 id="password"
                                 label="Пароль"
                                 type="password"
@@ -156,7 +151,7 @@ const Sign = () => {
                         <FormGroup>
                             <TextField
                                 autoFocus
-                                style={{marginBottom: 20}}
+                                style={{ marginBottom: 20 }}
                                 id="email"
                                 label="Почта"
                                 type="email"
@@ -166,7 +161,7 @@ const Sign = () => {
                                 variant="filled"
                             />
                             <TextField
-                                style={{marginBottom: 20}}
+                                style={{ marginBottom: 20 }}
                                 id="password"
                                 label="Пароль"
                                 type="password"
