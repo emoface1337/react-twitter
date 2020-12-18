@@ -1,24 +1,40 @@
-import React, { FC, ReactElement } from 'react'
+import React, { FC, FormEvent, ReactElement, useState } from 'react'
+
 import { Avatar, Box, Button, CircularProgress, Divider, IconButton, Paper, TextareaAutosize } from '@material-ui/core'
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import SentimentVerySatisfiedOutlinedIcon from '@material-ui/icons/SentimentVerySatisfiedOutlined'
-import { useHomeStyles } from '../../pages/Home'
+import { useHomeStyles } from '../../theme/theme'
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>
 }
 
 const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
+
+    const [textareaValue, setTextareaValue] = useState('')
+    const circularProgressValue = Math.ceil((textareaValue.length / 280) * 100)
+
+    const handleChangeTextarea = (e: FormEvent<HTMLTextAreaElement>) => {
+        if (e.currentTarget) {
+            setTextareaValue(e.currentTarget.value)
+        }
+    }
+
     return (
         <Paper className={classes.tweetsHeader} square variant="outlined">
             <Box className={classes.addTweetWrapper}>
-                <Box className={classes.addTweetAvatar}>
+                <Box className={classes.addTweetAvatarBlock}>
                     <Avatar alt="Max Verstappen"
                             src="https://i.guim.co.uk/img/media/f466735dabf1b18ac31e0f0ad751c9b3e4ba7be6/0_0_5472_3283/master/5472.jpg?width=1020&quality=85&auto=format&fit=max&s=1752e02897f98c1c6a32d6ba2131716c"/>
                 </Box>
                 <Box className={classes.addTweetContent}>
-                    <TextareaAutosize placeholder="Что происходит?"
-                                      className={classes.addTweetTextarea}/>
+                    <TextareaAutosize
+                        onChange={handleChangeTextarea}
+                        value={textareaValue}
+                        placeholder="Что происходит?"
+                        className={classes.addTweetTextarea}
+                        maxLength={280}
+                    />
                     <Box className={classes.addTweetActionsWrapper}>
                         <Box className={classes.addTweetActions}>
                             <Box className={classes.addTweetAction}>
@@ -32,10 +48,18 @@ const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
                                 </IconButton>
                             </Box>
                         </Box>
-                        <Box style={{ display: 'flex', alignItems: 'center'}}>
-                            <CircularProgress variant="determinate" value={25} color="primary" size="20px"/>
-                            <Divider orientation="vertical" flexItem color="primary" style={{margin: '0 15px'}}/>
-                            <Button color="primary" variant="contained" className={classes.addTweetButton}>
+                        <Box style={{ display: 'flex', alignItems: 'center' }}>
+                            {
+                                textareaValue &&
+                                (
+                                    <Box className={classes.circularProgressBlock}>
+                                        <CircularProgress variant="determinate" value={circularProgressValue}                                                          thickness={5} size="20px"/>
+                                        <CircularProgress variant="determinate" value={100} thickness={5} size="20px"                                                          style={{ color: 'rgba(0,0,0,0.1)'}}/>
+                                    </Box>
+                                )
+                            }
+                            <Divider orientation="vertical" flexItem color="primary" style={{ margin: '0 15px' }}/>
+                            <Button disabled={circularProgressValue === 100} color="primary" variant="contained" className={classes.addTweetButton}>
                                 Твитнуть
                             </Button>
                         </Box>

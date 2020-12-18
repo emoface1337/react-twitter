@@ -7,7 +7,7 @@ import ModeCommentOutlinedIcon from '@material-ui/icons/ModeCommentOutlined'
 import RepeatOutlinedIcon from '@material-ui/icons/RepeatOutlined'
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined'
-import { useHomeStyles } from '../../pages/Home'
+import { useHomeStyles } from '../../theme/theme'
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>
