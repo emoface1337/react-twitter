@@ -1,12 +1,8 @@
-// @ts-nocheck
-
-import { createMuiTheme, makeStyles } from '@material-ui/core/styles'
+import { createMuiTheme, makeStyles, Theme } from '@material-ui/core/styles'
 import { red } from '@material-ui/core/colors'
 
 export const theme = createMuiTheme({
     typography: {
-        fontFamily: ['Roboto',            'sans-serif'
-        ],
         body1: {
             fontSize: 15
         }
@@ -25,20 +21,24 @@ export const theme = createMuiTheme({
         },
         background: {
             default: '#fff'
+        },
+        action: {
+            disabledBackground: '#8ed0f8',
+            disabled: '#fff'
         }
     },
-    shadows: [],
+    shadows: [] as unknown as Theme['shadows'],
     overrides: {
         MuiButton: {
             root: {
                 borderRadius: 30,
                 textTransform: 'none',
-                fontSize: 16,
+                fontSize: 15,
                 height: 40,
                 fontWeight: 700
             },
             textPrimary: {
-                paddingLeft: 20,
+                paddingLeft: 50,
                 paddingRight: 20
             },
             outlinedPrimary: {

@@ -59,7 +59,7 @@ const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
                                 )
                             }
                             <Divider orientation="vertical" flexItem color="primary" style={{ margin: '0 15px' }}/>
-                            <Button disabled={circularProgressValue === 100} color="primary" variant="contained" className={classes.addTweetButton}>
+                            <Button disabled={circularProgressValue === 0} color="primary" variant="contained" className={classes.addTweetButton}>
                                 Твитнуть
                             </Button>
                         </Box>
