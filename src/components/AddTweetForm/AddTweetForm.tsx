@@ -11,13 +11,19 @@ type Props = {
 
 const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
 
-    const [textareaValue, setTextareaValue] = useState('')
-    const circularProgressValue = Math.ceil((textareaValue.length / 280) * 100)
+    const maxLength: number = 280
 
-    const handleChangeTextarea = (e: FormEvent<HTMLTextAreaElement>) => {
-        if (e.currentTarget) {
-            setTextareaValue(e.currentTarget.value)
+    const [textareaValue, setTextareaValue] = useState('')
+    const [isTextareaMaxLength, setIsTextareaMaxLength] = useState(false)
+
+    const circularProgressValue: number = Math.ceil((textareaValue.length / maxLength) * 100)
+
+    const handleChangeTextarea = (event: FormEvent<HTMLTextAreaElement>) => {
+        if (event.currentTarget) {
+            setTextareaValue(event.currentTarget.value)
         }
+
+        event.currentTarget.value.length === maxLength ? setIsTextareaMaxLength(true) : setIsTextareaMaxLength(false)
     }
 
     return (
@@ -33,7 +39,7 @@ const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
                         value={textareaValue}
                         placeholder="Что происходит?"
                         className={classes.addTweetTextarea}
-                        maxLength={280}
+                        maxLength={maxLength}
                     />
                     <Box className={classes.addTweetActionsWrapper}>
                         <Box className={classes.addTweetActions}>
@@ -53,13 +59,16 @@ const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
                                 textareaValue &&
                                 (
                                     <Box className={classes.circularProgressBlock}>
-                                        <CircularProgress variant="determinate" value={circularProgressValue}                                                          thickness={5} size="20px"/>
-                                        <CircularProgress variant="determinate" value={100} thickness={5} size="20px"                                                          style={{ color: 'rgba(0,0,0,0.1)'}}/>
+                                        <CircularProgress variant="determinate" value={circularProgressValue}
+                                                          thickness={5} size="20px" style={{ color: `${isTextareaMaxLength ? 'red' : ''}`}}/>
+                                        <CircularProgress variant="determinate" value={100} thickness={5} size="20px"
+                                                          style={{ color: 'rgba(0,0,0,0.1)' }}/>
                                     </Box>
                                 )
                             }
                             <Divider orientation="vertical" flexItem color="primary" style={{ margin: '0 15px' }}/>
-                            <Button disabled={circularProgressValue === 0} color="primary" variant="contained" className={classes.addTweetButton}>
+                            <Button disabled={circularProgressValue === 0} color="primary" variant="contained"
+                                    className={classes.addTweetButton}>
                                 Твитнуть
                             </Button>
                         </Box>

@@ -1,6 +1,6 @@
 import { call, takeEvery, put } from 'redux-saga/effects'
 import { LoadingStatusEnum, tweetsActions, TweetsActionsType } from './tweets'
-import { TweetsApi } from '../../../api/tweetApi'
+import { TweetsApi } from '../../../api/tweetsApi'
 
 export function* fetchTweetsRequest() {
     try {

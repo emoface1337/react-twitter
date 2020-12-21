@@ -1,5 +1,5 @@
 import produce, { Draft } from 'immer'
-import { TweetType } from '../../../api/tweetApi'
+import { TweetType } from '../../../api/tweetsApi'
 import { InferActionsTypes } from '../index'
 import { Action } from 'redux'
 

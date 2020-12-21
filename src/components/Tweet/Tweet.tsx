@@ -8,7 +8,7 @@ import RepeatOutlinedIcon from '@material-ui/icons/RepeatOutlined'
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined'
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined'
 import { useHomeStyles } from '../../theme/theme'
-import { TweetType } from '../../api/tweetApi'
+import { TweetType } from '../../api/tweetsApi'
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>,
