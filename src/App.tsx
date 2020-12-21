@@ -3,7 +3,7 @@ import Sign from './pages/Sign'
 import { Route, Switch } from 'react-router-dom'
 import Home from './pages/Home'
 
-function App() {
+const App = () => {
     return (
         <div className="App">
             <Switch>

@@ -1,16 +1,28 @@
-import React, { FC, ReactElement } from 'react'
+import React, { FC, ReactElement, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { tweetsActions } from '../store/ducks/tweets/tweets'
+import { tweetsIsLoadingSelector, tweetsSelector } from '../store/ducks/tweets/selectors'
 import { useHomeStyles } from '../theme/theme'
 
-import { Box, Container, Typography, Grid, Paper } from '@material-ui/core'
+import { Box, Container, Typography, Grid, Paper, CircularProgress } from '@material-ui/core'
 
 import Tweet from '../components/Tweet/Tweet'
 import AddTweetForm from '../components/AddTweetForm/AddTweetForm'
 import SearchForm from '../components/SearchForm/SearchForm'
 import SideMenu from '../components/SideMenu/SideMenu'
+import { RootState } from '../store/ducks'
 
 const Home: FC = (): ReactElement => {
 
+    const dispatch = useDispatch()
     const classes = useHomeStyles()
+
+    const tweets = useSelector((state: RootState) => tweetsSelector(state))
+    const isLoading = useSelector((state: RootState) => tweetsIsLoadingSelector(state))
+
+    useEffect(() => {
+        dispatch(tweetsActions.fetchTweets())
+    }, [dispatch])
 
     return (
         <Container maxWidth="lg" component="main">
@@ -26,9 +38,11 @@ const Home: FC = (): ReactElement => {
                         <AddTweetForm classes={classes}/>
                         <Box className={classes.tweetsDivider}/>
                         {
-                            Array(15).fill(1).map(() =>
-                                <Tweet classes={classes}/>
-                            )
+                            isLoading
+                                ? <CircularProgress variant="indeterminate" size="3rem"/>
+                                : tweets.map(tweet =>
+                                    <Tweet key={tweet._id} classes={classes} tweet={tweet}/>
+                                )
                         }
                     </Paper>
                 </Grid>
