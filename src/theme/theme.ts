@@ -5,6 +5,10 @@ export const theme = createMuiTheme({
     typography: {
         body1: {
             fontSize: 15
+        },
+        body2: {
+            fontSize: 13,
+            color: 'rgb(91, 112, 131)'
         }
     },
     palette: {
@@ -291,6 +295,40 @@ export const useHomeStyles = makeStyles((theme) => ({
             top: 0,
             right: 0
         }
+    },
+    rightSideBlocksHeader: {
+        padding: '10px 15px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottom: '1px solid rgb(235, 238, 240)',
+        '& h6': {
+            fontSize: '19px',
+            fontWeight: 'bold',
+        }
+    },
+    rightSideBlocksWrapper: {
+        margin: '10px 0',
+        borderRadius: '16px',
+        backgroundColor: '#f7f9fa',
+        '& div:last-child': {
+            borderBottom: 'none'
+        }
+    },
+    actualItem: {
+        padding: '10px 15px',
+        borderBottom: '1px solid rgb(235, 238, 240)',
+        '&:hover':{
+            cursor: 'pointer',
+            backgroundColor: 'rgba(0,0,0,0.03)'
+        }
+    },
+    actualItemTitle: {
+        fontWeight: 700,
+        margin: '5px 0'
+    },
+    recommendedUser: {
+
     }
 }))
 
