@@ -4,6 +4,8 @@ import { tweetsActions } from '../store/ducks/tweets/tweets'
 import { tweetsIsLoadingSelector, tweetsSelector } from '../store/ducks/tweets/selectors'
 import { RootState } from '../store'
 import { useHomeStyles } from '../theme/theme'
+import { themesActions } from '../store/ducks/themes/themes'
+import { Route } from 'react-router-dom'
 
 import { Box, Container, Typography, Grid, Paper, CircularProgress } from '@material-ui/core'
 
@@ -13,8 +15,8 @@ import SearchForm from '../components/SearchForm/SearchForm'
 import SideMenu from '../components/SideMenu/SideMenu'
 import ActualThemes from '../components/ActualThemes/ActualThemes'
 import RecommendedUsers from '../components/RecommendedUsers/RecommendedUsers'
-import { themesActions } from '../store/ducks/themes/themes'
-import { Route } from 'react-router-dom'
+import BackButton from '../components/BackButton/BackButton'
+
 
 const Home: FC = (): ReactElement => {
 
@@ -37,11 +39,19 @@ const Home: FC = (): ReactElement => {
                 </Grid>
                 <Grid item xs={6}>
                     <Paper className={classes.tweetsWrapper} square variant="outlined">
-                        <Paper className={classes.tweetsHeader} square variant="outlined">
-                            <Typography variant="h6">Главная</Typography>
-                        </Paper>
-                        <AddTweetForm classes={classes}/>
-                        <Box className={classes.tweetsDivider}/>
+                        <Route path='/home/tweet'>
+                            <Paper className={classes.tweetsHeader} square variant="outlined">
+                                <BackButton/>
+                                <Typography variant="h6">Твитнуть</Typography>
+                            </Paper>
+                        </Route>
+                        <Route path={['/home', '/home/search']} exact>
+                            <Paper className={classes.tweetsHeader} square variant="outlined">
+                                <Typography variant="h6">Главная</Typography>
+                            </Paper>
+                            <AddTweetForm classes={classes}/>
+                            <Box className={classes.tweetsDivider}/>
+                        </Route>
                         <Route path="/home" exact>
                             {
                                 isLoading

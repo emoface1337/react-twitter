@@ -156,6 +156,8 @@ export const useHomeStyles = makeStyles((theme) => ({
         borderBottom: 0
     },
     tweetsHeader: {
+        display: 'flex',
+        alignItems: 'center',
         borderLeft: 0,
         borderRight: 0,
         borderTop: 0,
@@ -169,6 +171,10 @@ export const useHomeStyles = makeStyles((theme) => ({
             backgroundColor: 'rgba(0,0,0,0.03)',
             cursor: 'pointer'
         }
+    },
+    tweetLink: {
+        color: 'inherit',
+        textDecoration: 'none'
     },
     tweetWrapper: {
         display: 'flex'
