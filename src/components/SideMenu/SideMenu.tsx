@@ -4,7 +4,7 @@ import { Box, Button, IconButton, SvgIconTypeMap } from '@material-ui/core'
 import { Twitter } from '@material-ui/icons'
 import { useHomeStyles } from '../../theme/theme'
 import { OverridableComponent } from '@material-ui/core/OverridableComponent'
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
+// import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined'
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined'
 import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined'
 import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined'
@@ -22,7 +22,7 @@ const MenuIcon = (Component: OverridableComponent<SvgIconTypeMap>) => {
 }
 
 const menuItems = [
-    { title: 'Главная', icon: MenuIcon(HomeOutlinedIcon) },
+    // { title: 'Главная', icon: MenuIcon(HomeOutlinedIcon) },
     { title: 'Поиск', icon: MenuIcon(SearchOutlinedIcon) },
     { title: 'Уведомления', icon: MenuIcon(NotificationsOutlinedIcon) },
     { title: 'Сообщения', icon: MenuIcon(MailOutlineOutlinedIcon) },
@@ -43,7 +43,7 @@ const SideMenu: FC<Props> = ({ classes }): ReactElement => {
             <nav className={classes.nav}>
                 {
                     menuItems.map(item => (
-                        <div key={item.title}>
+                        <div key={item.title} style={{ padding: '5px 0'}}>
                             <Button
                                 variant="text"
                                 color="primary"

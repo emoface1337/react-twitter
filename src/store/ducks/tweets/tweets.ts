@@ -1,16 +1,16 @@
 import produce, { Draft } from 'immer'
 import { TweetType } from '../../../api/tweetsApi'
-import { InferActionsTypes } from '../index'
+import { InferActionsTypes } from '../../index'
 import { Action } from 'redux'
 
 export enum TweetsActionsType {
-    SET_TWEETS = 'tweets/SET_TWEETS',
-    FETCH_TWEETS = 'tweets/FETCH_TWEETS',
-    SET_LOADING_STATE = 'SET_LOADING_STATE'
+    SET_ITEMS = 'tweets/SET_ITEMS',
+    FETCH_ITEMS = 'tweets/FETCH_ITEMS',
+    SET_LOADING_STATE = 'tweets/SET_LOADING_STATE'
 }
 
 export interface SetTweetsInterface extends Action<TweetsActionsType> {
-    type: TweetsActionsType.SET_TWEETS,
+    type: TweetsActionsType.SET_ITEMS,
     payload: TweetsStateType['tweets']
 }
 
@@ -20,12 +20,12 @@ export interface SetLoadingStateInterface extends Action<TweetsActionsType> {
 }
 
 export interface FetchTweetsInterface extends Action<TweetsActionsType> {
-    type: TweetsActionsType.FETCH_TWEETS
+    type: TweetsActionsType.FETCH_ITEMS
 }
 
 export const tweetsActions = {
     setTweets: (tweets: TweetsStateType['tweets']): SetTweetsInterface => ({
-        type: TweetsActionsType.SET_TWEETS,
+        type: TweetsActionsType.SET_ITEMS,
         payload: tweets
     } as const),
     setLoadingState: (loadingStatus: LoadingStatusEnum): SetLoadingStateInterface => ({
@@ -33,7 +33,7 @@ export const tweetsActions = {
         payload: loadingStatus
     } as const),
     fetchTweets: (): FetchTweetsInterface => ({
-        type: TweetsActionsType.FETCH_TWEETS
+        type: TweetsActionsType.FETCH_ITEMS
     })
 }
 
@@ -55,12 +55,12 @@ type TweetsActionTypes = InferActionsTypes<typeof tweetsActions>
 export const tweetsReducer = produce((draft: Draft<TweetsStateType>, action: TweetsActionTypes) => {
 
     switch (action.type) {
-        case TweetsActionsType.SET_TWEETS: {
+        case TweetsActionsType.SET_ITEMS: {
             draft.tweets = action.payload
             draft.loadingStatus = LoadingStatusEnum.LOADED
             break
         }
-        case TweetsActionsType.FETCH_TWEETS: {
+        case TweetsActionsType.FETCH_ITEMS: {
             draft.tweets = []
             draft.loadingStatus = LoadingStatusEnum.LOADING
             break

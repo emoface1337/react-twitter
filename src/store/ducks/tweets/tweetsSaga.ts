@@ -13,5 +13,5 @@ export function* fetchTweetsRequest() {
 }
 
 export function* tweetsSaga() {
-    yield takeEvery(TweetsActionsType.FETCH_TWEETS, fetchTweetsRequest)
+    yield takeEvery(TweetsActionsType.FETCH_ITEMS, fetchTweetsRequest)
 }

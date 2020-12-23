@@ -304,32 +304,35 @@ export const useHomeStyles = makeStyles((theme) => ({
         borderBottom: '1px solid rgb(235, 238, 240)',
         '& h6': {
             fontSize: '19px',
-            fontWeight: 'bold',
+            fontWeight: 'bold'
         }
     },
     rightSideBlocksWrapper: {
         margin: '10px 0',
         borderRadius: '16px',
         backgroundColor: '#f7f9fa',
-        '& div:last-child': {
-            borderBottom: 'none'
+        '& > div:last-child': {
+            borderBottom: 'none',
+            borderRadius: '0 0 16px 16px'
         }
     },
     actualItem: {
         padding: '10px 15px',
         borderBottom: '1px solid rgb(235, 238, 240)',
-        '&:hover':{
+        '&:hover': {
             cursor: 'pointer',
             backgroundColor: 'rgba(0,0,0,0.03)'
+        },
+        '& a': {
+            color: 'inherit',
+            textDecoration: 'none'
         }
     },
     actualItemTitle: {
         fontWeight: 700,
         margin: '5px 0'
     },
-    recommendedUser: {
-
-    }
+    recommendedUser: {}
 }))
 
 export default theme

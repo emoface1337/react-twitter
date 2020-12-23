@@ -1,4 +1,4 @@
-import { RootState } from '../index'
+import { RootState } from '../../index'
 import { LoadingStatusEnum } from './tweets'
 
 export const tweetsSelector = (state: RootState) => state.tweets.tweets

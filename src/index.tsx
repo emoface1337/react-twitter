@@ -8,7 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import App from './App'
 
 import { theme } from './theme/theme'
-import store from './store/ducks'
+import store from './store'
 
 ReactDOM.render(
     <Router>

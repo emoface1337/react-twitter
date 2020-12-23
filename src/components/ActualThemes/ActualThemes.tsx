@@ -1,4 +1,9 @@
-import React, { FC } from 'react'
+import React, { FC, ReactElement } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { Link } from 'react-router-dom'
+import { themesIsLoadedSelector, themesSelector } from '../../store/ducks/themes/selectors'
+
 import { Box, IconButton, Paper, Typography } from '@material-ui/core'
 import { useHomeStyles } from '../../theme/theme'
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
@@ -7,7 +12,15 @@ type Props = {
     classes: ReturnType<typeof useHomeStyles>
 }
 
-const ActualThemes: FC<Props> = ({ classes }) => {
+const ActualThemes: FC<Props> = ({ classes }): ReactElement | null => {
+
+    const themes = useSelector((state: RootState) => themesSelector(state))
+    const isLoaded = useSelector((state: RootState) => themesIsLoadedSelector(state))
+
+    if (!isLoaded) {
+        return null
+    }
+
     return (
         <>
             <Paper className={classes.rightSideBlocksWrapper}>
@@ -20,15 +33,19 @@ const ActualThemes: FC<Props> = ({ classes }) => {
                     </Box>
                 </Box>
                 {
-                    Array(5).fill(0).map(() =>
-                        <Box className={classes.actualItem}>
-                            <Typography variant="body2">Актуальные темы: Россия</Typography>
-                            <Typography variant="body1" className={classes.actualItemTitle}>
-                                Навального
-                            </Typography>
-                            <Typography variant="body2">Твитов: 29,7 тыс.</Typography>
+                    themes.map(theme => (
+
+                        <Box className={classes.actualItem} key={theme._id}>
+                            <Link to={`/home/search?q=${theme.name}`}>
+                                <Typography variant="body2">Актуальные темы: Россия</Typography>
+                                <Typography variant="body1" className={classes.actualItemTitle}>
+                                    {theme.name}
+                                </Typography>
+                                <Typography variant="body2">Твитов: {theme.count}</Typography>
+                            </Link>
                         </Box>
-                    )
+
+                    ))
                 }
             </Paper>
         </>

@@ -20,8 +20,9 @@ const useStyles = makeStyles((theme) => ({
     list: {
         padding: '0',
         '& div:last-child': {
-            '& div:first-child': {
-                borderBottom: 'none'
+            '& > div:first-child': {
+                borderBottom: 'none',
+                borderRadius: '0 0 16px 16px'
             }
         }
     },

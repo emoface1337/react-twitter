@@ -13,7 +13,7 @@ export type TweetType = {
 
 export const TweetsApi = {
     async fetchTweets(): Promise<TweetsStateType['tweets']> {
-        const { data } = await axios.get('https://trycode.pw/c/2OBQ1.json')
+        const { data } = await axios.get('/tweets')
         return data
     }
 }
