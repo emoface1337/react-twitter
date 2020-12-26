@@ -16,6 +16,7 @@ import SideMenu from '../components/SideMenu/SideMenu'
 import ActualThemes from '../components/ActualThemes/ActualThemes'
 import RecommendedUsers from '../components/RecommendedUsers/RecommendedUsers'
 import BackButton from '../components/BackButton/BackButton'
+import FullTweet from './components/FullTweet'
 
 
 const Home: FC = (): ReactElement => {
@@ -39,29 +40,33 @@ const Home: FC = (): ReactElement => {
                 </Grid>
                 <Grid item xs={6}>
                     <Paper className={classes.tweetsWrapper} square variant="outlined">
-                        <Route path='/home/tweet'>
+                        <Route path={['/home/tweet', '/home/search']}>
                             <Paper className={classes.tweetsHeader} square variant="outlined">
                                 <BackButton/>
                                 <Typography variant="h6">Твитнуть</Typography>
                             </Paper>
                         </Route>
-                        <Route path={['/home', '/home/search']} exact>
+                        <Route path={'/home'} exact>
                             <Paper className={classes.tweetsHeader} square variant="outlined">
                                 <Typography variant="h6">Главная</Typography>
                             </Paper>
                             <AddTweetForm classes={classes}/>
                             <Box className={classes.tweetsDivider}/>
                         </Route>
-                        <Route path="/home" exact>
-                            {
-                                isLoading
-                                    ? <CircularProgress variant="indeterminate" size="3rem"/>
-                                    : tweets.map(tweet =>
-                                        <Tweet key={tweet._id} classes={classes} tweet={tweet}/>
-                                    )
-                            }
-                        </Route>
                     </Paper>
+                    <Route path="/home" exact>
+                        {
+                            isLoading
+                                ?
+                                <Box className={classes.loadingWrapper}>
+                                    <CircularProgress variant="indeterminate" size="3rem"/>
+                                </Box>
+                                : tweets.map(tweet =>
+                                    <Tweet key={tweet._id} classes={classes} tweet={tweet}/>
+                                )
+                        }
+                    </Route>
+                    <Route path="/home/tweet/:id" component={FullTweet}/>
                 </Grid>
                 <Grid item xs={3}>
                     <Box className={classes.rightSideWrapper}>

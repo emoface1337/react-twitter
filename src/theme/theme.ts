@@ -100,6 +100,9 @@ export const useHomeStyles = makeStyles((theme) => ({
         height: 140,
         width: 100
     },
+    loadingWrapper: {
+      textAlign: 'center'
+    },
     menuWrapper: {
         position: 'sticky',
         top: 0
@@ -167,6 +170,8 @@ export const useHomeStyles = makeStyles((theme) => ({
         }
     },
     tweet: {
+        border: '1px solid rgba(0,0,0,0.12)',
+        borderTop: 'none',
         '&:hover': {
             backgroundColor: 'rgba(0,0,0,0.03)',
             cursor: 'pointer'

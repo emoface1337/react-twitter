@@ -2,11 +2,13 @@ import { combineReducers, createStore } from 'redux'
 import { enhancedStore, sagaMiddleware } from './middleware'
 import { tweetsReducer as tweets} from './ducks/tweets/tweets'
 import { themesReducer as themes } from './ducks/themes/themes'
+import { tweetReducer as tweet} from './ducks/tweet/tweet'
 import rootSaga from './sagas'
 
 const rootReducer = combineReducers({
     tweets,
-    themes
+    themes,
+    tweet
 })
 
 type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
