@@ -43,7 +43,7 @@ const SideMenu: FC<Props> = ({ classes }): ReactElement => {
             <nav className={classes.nav}>
                 {
                     menuItems.map(item => (
-                        <div key={item.title} style={{ padding: '5px 0'}}>
+                        <div key={item.title} style={{ padding: '5px 0' }}>
                             <Button
                                 variant="text"
                                 color="primary"

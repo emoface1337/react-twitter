@@ -89,6 +89,36 @@
         "username": "kristen",
         "avatarUrl": "https://source.unsplash.com/random/100x100?4"
       }
+    },
+    {
+      "id": "r5aowxy2ob",
+      "_id": "5isw4fvw1ii",
+      "text": "вфывыф",
+      "user": {
+        "fullname": "Test User",
+        "username": "test123",
+        "avatarUrl": "https://source.unsplash.com/random/100x100?2"
+      }
+    },
+    {
+      "id": "stv4sfefpc9",
+      "_id": "dqg3qfux3gs",
+      "text": "dasdsadas",
+      "user": {
+        "fullname": "Test User",
+        "username": "test123",
+        "avatarUrl": "https://source.unsplash.com/random/100x100?2"
+      }
+    },
+    {
+      "id": "obb82gjvwv",
+      "_id": "xntjdn9r44p",
+      "text": "dasdsadas",
+      "user": {
+        "fullname": "Test User",
+        "username": "test123",
+        "avatarUrl": "https://source.unsplash.com/random/100x100?2"
+      }
     }
   ],
   "user": {

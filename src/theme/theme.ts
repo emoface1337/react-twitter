@@ -101,7 +101,8 @@ export const useHomeStyles = makeStyles((theme) => ({
         width: 100
     },
     loadingWrapper: {
-      textAlign: 'center'
+        textAlign: 'center',
+        padding: '30px 0',
     },
     menuWrapper: {
         position: 'sticky',
@@ -251,7 +252,8 @@ export const useHomeStyles = makeStyles((theme) => ({
         }
     },
     addTweetWrapper: {
-        display: 'flex'
+        display: 'flex',
+        flexGrow: 1
     },
     addTweetAvatarBlock: {
         flexBasis: '49px',
@@ -268,7 +270,10 @@ export const useHomeStyles = makeStyles((theme) => ({
         padding: '10px 0',
         fontFamily: 'sans-serif',
         resize: 'none',
-        marginBottom: '10px'
+        marginBottom: '10px',
+        '&:focus': {
+            outline: 'none'
+        }
     },
     addTweetContent: {
         flexGrow: 1
@@ -293,6 +298,10 @@ export const useHomeStyles = makeStyles((theme) => ({
     },
     addTweetButton: {
         fontSize: '15px'
+    },
+    addTweetFormAlert: {
+        marginTop: '15px',
+        display: 'none'
     },
     tweetsDivider: {
         backgroundColor: 'rgb(247, 249, 250)',

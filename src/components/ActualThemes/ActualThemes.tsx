@@ -4,7 +4,7 @@ import { RootState } from '../../store'
 import { Link } from 'react-router-dom'
 import { themesIsLoadedSelector, themesSelector } from '../../store/ducks/themes/selectors'
 
-import { Box, IconButton, Paper, Typography } from '@material-ui/core'
+import { Box, CircularProgress, IconButton, Paper, Typography } from '@material-ui/core'
 import { useHomeStyles } from '../../theme/theme'
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined'
 
@@ -18,7 +18,9 @@ const ActualThemes: FC<Props> = ({ classes }): ReactElement | null => {
     const isLoaded = useSelector((state: RootState) => themesIsLoadedSelector(state))
 
     if (!isLoaded) {
-        return null
+        return <Box className={classes.loadingWrapper}>
+            <CircularProgress variant="indeterminate" size="2rem"/>
+        </Box>
     }
 
     return (

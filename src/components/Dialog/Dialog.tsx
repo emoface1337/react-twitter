@@ -1,6 +1,6 @@
-import React, {FC, ReactElement, ReactNode} from 'react'
+import React, { FC, ReactElement, ReactNode } from 'react'
 
-import {Dialog, DialogContent, DialogTitle, IconButton} from '@material-ui/core'
+import { Dialog, DialogContent, DialogTitle, IconButton } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/CloseOutlined'
 
 type ModalProps = {
@@ -10,7 +10,7 @@ type ModalProps = {
     onClose: () => void
 }
 
-export const Modal: FC<ModalProps> = ({title, children, visible = false, onClose}): ReactElement => {
+export const Modal: FC<ModalProps> = ({ title, children, visible = false, onClose }): ReactElement => {
 
     return (
         <Dialog open={visible} onClose={onClose} aria-labelledby="form-dialog-title" maxWidth="xs"

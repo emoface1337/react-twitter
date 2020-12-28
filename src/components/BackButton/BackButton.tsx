@@ -24,7 +24,7 @@ const BackButton: FC = (): ReactElement => {
 
     return (
         <div>
-            <IconButton className={classes.root} onClick={handleClick}>
+            <IconButton className={classes.root} onClick={handleClick} disableRipple={true}>
                 <ArrowBackIcon fontSize="inherit" color="primary"/>
             </IconButton>
         </div>

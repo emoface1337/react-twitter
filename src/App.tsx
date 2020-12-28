@@ -3,6 +3,8 @@ import Sign from './pages/Sign'
 import { Route, Switch } from 'react-router-dom'
 import Home from './pages/Home'
 
+// 1. linkify tweet
+
 const App = () => {
     return (
         <div className="App">

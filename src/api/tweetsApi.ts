@@ -2,6 +2,7 @@ import axios from 'axios'
 import { TweetsStateType } from '../store/ducks/tweets/tweets'
 
 export type TweetType = {
+    id?: string
     _id: string
     text: string
     user: {
@@ -13,12 +14,13 @@ export type TweetType = {
 
 export const TweetsApi = {
     async fetchTweets(): Promise<TweetsStateType['tweets']> {
-        const { data } = await axios.get('/tweets')
-        return data
+        return await axios.get('/tweets').then(({ data }) => data)
     },
     async fetchTweet(id: string): Promise<TweetType> {
-        const { data } = await axios.get('/tweets?_id=' + id)
-        return data
+        return await axios.get('/tweets?_id=' + id).then(({ data }) => data)
+    },
+    async addTweet(tweet: TweetType): Promise<TweetType> {
+        return await axios.post('/tweets', tweet).then(({ data }) => data)
     }
 }
 

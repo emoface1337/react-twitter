@@ -1,17 +1,38 @@
 import React, { FC, FormEvent, ReactElement, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
-import { Avatar, Box, Button, CircularProgress, Divider, IconButton, Paper, TextareaAutosize } from '@material-ui/core'
+import { Avatar, Box, CircularProgress, Divider, IconButton, Paper, TextareaAutosize } from '@material-ui/core'
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import SentimentVerySatisfiedOutlinedIcon from '@material-ui/icons/SentimentVerySatisfiedOutlined'
 import { useHomeStyles } from '../../theme/theme'
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
+import Fade from '@material-ui/core/Fade'
+
+import { TweetsActions } from '../../store/ducks/tweets/tweets'
+import LoadingButton from '../LoadingButton/LoadingButton'
+
+import { tweetsSelectors } from '../../store/ducks/tweets/selectors'
+
+const Alert = (props: AlertProps) => {
+    return <MuiAlert elevation={0} variant="filled" {...props} />
+}
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>
 }
 
+// TODO:
+//  1. при ошибке сохранение текста твита
+
 const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
 
+    const isTweetAdding = useSelector((state: RootState) => tweetsSelectors.isTweetLoadingStatusSelector(state))
+    const isTweetAddingError = useSelector((state: RootState) => tweetsSelectors.isTweetErrorStatusSelector(state))
+
     const maxLength: number = 280
+
+    const dispatch = useDispatch()
 
     const [textareaValue, setTextareaValue] = useState('')
     const [isTextareaMaxLength, setIsTextareaMaxLength] = useState(false)
@@ -24,6 +45,11 @@ const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
         }
 
         event.currentTarget.value.length === maxLength ? setIsTextareaMaxLength(true) : setIsTextareaMaxLength(false)
+    }
+
+    const handleAddTweetClick = (): void => {
+        dispatch(TweetsActions.addTweet(textareaValue))
+        setTextareaValue('')
     }
 
     return (
@@ -60,19 +86,28 @@ const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
                                 (
                                     <Box className={classes.circularProgressBlock}>
                                         <CircularProgress variant="determinate" value={circularProgressValue}
-                                                          thickness={5} size="20px" style={{ color: `${isTextareaMaxLength ? 'red' : ''}`}}/>
+                                                          thickness={5} size="20px"
+                                                          style={{ color: `${isTextareaMaxLength ? 'red' : ''}` }}/>
                                         <CircularProgress variant="determinate" value={100} thickness={5} size="20px"
                                                           style={{ color: 'rgba(0,0,0,0.1)' }}/>
                                     </Box>
                                 )
                             }
                             <Divider orientation="vertical" flexItem color="primary" style={{ margin: '0 15px' }}/>
-                            <Button disabled={circularProgressValue === 0} color="primary" variant="contained"
-                                    className={classes.addTweetButton}>
-                                Твитнуть
-                            </Button>
+                            <LoadingButton
+                                handleButtonClick={handleAddTweetClick}
+                                loading={isTweetAdding}
+                                title="Твитнуть"
+                                disabled={circularProgressValue === 0}
+                                classesFromProps={classes}
+                            />
                         </Box>
                     </Box>
+                    <Fade in={isTweetAddingError} timeout={500} unmountOnExit={true}>
+                        <Alert severity="error" className={classes.addTweetFormAlert}>
+                            Ошибка при добавлении твита :(
+                        </Alert>
+                    </Fade>
                 </Box>
             </Box>
         </Paper>

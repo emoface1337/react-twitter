@@ -5,7 +5,7 @@ import { Twitter } from '@material-ui/icons'
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined'
-import Modal from '../components/Dialog'
+import Modal from '../components/Dialog/Dialog'
 
 const useStyles = makeStyles(() => ({
         wrapper: {

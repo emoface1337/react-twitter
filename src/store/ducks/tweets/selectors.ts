@@ -1,7 +1,20 @@
 import { RootState } from '../../index'
-import { LoadingStatusEnum } from './tweets'
+import { AddingTweetStatusEnum, LoadingTweetsStatusEnum } from './tweets'
 
-export const tweetsSelector = (state: RootState) => state.tweets.tweets
-export const tweetsLoadingStatusSelector = (state: RootState): LoadingStatusEnum => state.tweets.loadingStatus
-export const tweetsIsLoadingSelector = (state: RootState): boolean => tweetsLoadingStatusSelector(state) === LoadingStatusEnum.LOADING
-export const tweetsIsLoadedSelector = (state: RootState): boolean => tweetsLoadingStatusSelector(state) === LoadingStatusEnum.LOADED
+export const tweetsSelectors = {
+    tweetsSelector: (state: RootState) => state.tweets.tweets,
+    loadingStatusSelector: (state: RootState): LoadingTweetsStatusEnum => state.tweets.loadingStatus,
+    addingTweetStatusSelector: (state: RootState): AddingTweetStatusEnum => state.tweets.addingTweetStatus,
+    isTweetsLoadingSelector: function (state: RootState): boolean {
+        return this.loadingStatusSelector(state) === LoadingTweetsStatusEnum.LOADING
+    },
+    isTweetsLoadedSelector: function (state: RootState): boolean {
+        return this.loadingStatusSelector(state) === LoadingTweetsStatusEnum.LOADED
+    },
+    isTweetLoadingStatusSelector: function (state: RootState): boolean {
+        return this.addingTweetStatusSelector(state) === AddingTweetStatusEnum.LOADING
+    },
+    isTweetErrorStatusSelector: function (state: RootState): boolean {
+        return this.addingTweetStatusSelector(state) === AddingTweetStatusEnum.ERROR
+    }
+}
