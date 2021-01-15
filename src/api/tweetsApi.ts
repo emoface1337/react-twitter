@@ -14,7 +14,7 @@ export type TweetType = {
 
 export const TweetsApi = {
     async fetchTweets(): Promise<TweetsStateType['tweets']> {
-        return await axios.get('/tweets').then(({ data }) => data)
+        return await axios.get('/tweets?_sort=id&_order=asc').then(({ data }) => data)
     },
     async fetchTweet(id: string): Promise<TweetType> {
         return await axios.get('/tweets?_id=' + id).then(({ data }) => data)

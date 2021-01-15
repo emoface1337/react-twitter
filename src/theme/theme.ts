@@ -1,5 +1,6 @@
-import { createMuiTheme, makeStyles, Theme } from '@material-ui/core/styles'
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles'
 import { red } from '@material-ui/core/colors'
+import { Shadows } from '@material-ui/core/styles/shadows'
 
 export const theme = createMuiTheme({
     typography: {
@@ -31,7 +32,7 @@ export const theme = createMuiTheme({
             disabled: '#fff'
         }
     },
-    shadows: [] as unknown as Theme['shadows'],
+    shadows: Array(25).fill('none') as Shadows,
     overrides: {
         MuiButton: {
             root: {

@@ -113,7 +113,7 @@ export const tweetsReducer = produce((draft: Draft<TweetsStateType>, action: Twe
         }
 
         case TweetsActionsType.FETCH_ADD_TWEET_SUCCESS: {
-            draft.tweets.push(action.payload)
+            draft.tweets.unshift(action.payload)
             draft.addingTweetStatus = AddingTweetStatusEnum.NEVER
             break
         }

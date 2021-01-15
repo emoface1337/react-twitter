@@ -5,6 +5,7 @@ import { RootState } from '../store'
 import { useHomeStyles } from '../theme/theme'
 import { themesActions } from '../store/ducks/themes/themes'
 import { Route } from 'react-router-dom'
+import { tweetsSelectors } from '../store/ducks/tweets/selectors'
 
 import { Box, Container, Typography, Grid, Paper, CircularProgress } from '@material-ui/core'
 
@@ -16,7 +17,7 @@ import ActualThemes from '../components/ActualThemes/ActualThemes'
 import RecommendedUsers from '../components/RecommendedUsers/RecommendedUsers'
 import BackButton from '../components/BackButton/BackButton'
 import FullTweet from './components/FullTweet'
-import { tweetsSelectors } from '../store/ducks/tweets/selectors'
+
 
 const Home: FC = (): ReactElement => {
 
