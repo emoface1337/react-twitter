@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react'
+import React, { FC, ReactElement, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Box, Button, IconButton, SvgIconTypeMap } from '@material-ui/core'
 import { Twitter } from '@material-ui/icons'
@@ -12,6 +12,8 @@ import BookmarkBorderOutlinedIcon from '@material-ui/icons/BookmarkBorderOutline
 import ListAltOutlinedIcon from '@material-ui/icons/ListAltOutlined'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined'
+import AddTweetDialog from '../AddTweetDialog/AddTweetDialog'
+import AddTweetForm from '../AddTweetForm/AddTweetForm'
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>
@@ -33,6 +35,17 @@ const menuItems = [
 ]
 
 const SideMenu: FC<Props> = ({ classes }): ReactElement => {
+
+    const [visibleModal, setVisibleModal] = useState(false)
+
+    const handleClose = (): void => {
+        setVisibleModal(false)
+    }
+
+    const handleClickOpenAddTweetDialog = (): void => {
+        setVisibleModal(true)
+    }
+
     return (
         <Box className={classes.menuWrapper}>
             <Link to="/home" style={{ display: 'inline-block' }}>
@@ -56,10 +69,15 @@ const SideMenu: FC<Props> = ({ classes }): ReactElement => {
                     ))
                 }
             </nav>
-            <Button color="primary" variant="contained" fullWidth className={classes.tweetButton}>
+            <Button color="primary" variant="contained" fullWidth className={classes.tweetButton}
+                    onClick={handleClickOpenAddTweetDialog}>
                 Твитнуть
             </Button>
+            <AddTweetDialog onClose={handleClose} visible={visibleModal}>
+                <AddTweetForm/>
+            </AddTweetDialog>
         </Box>
+
     )
 }
 

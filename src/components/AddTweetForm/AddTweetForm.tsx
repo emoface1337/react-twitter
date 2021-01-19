@@ -18,14 +18,13 @@ const Alert = (props: AlertProps) => {
     return <MuiAlert elevation={0} variant="filled" {...props} />
 }
 
-type Props = {
-    classes: ReturnType<typeof useHomeStyles>
-}
 
 // TODO:
 //  1. при ошибке сохранение текста твита
 
-const AddTweetForm: FC<Props> = ({ classes }): ReactElement => {
+const AddTweetForm: FC = (): ReactElement => {
+
+    const classes = useHomeStyles()
 
     const isTweetAdding = useSelector((state: RootState) => tweetsSelectors.isTweetLoadingStatusSelector(state))
     const isTweetAddingError = useSelector((state: RootState) => tweetsSelectors.isTweetErrorStatusSelector(state))

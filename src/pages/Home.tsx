@@ -50,7 +50,7 @@ const Home: FC = (): ReactElement => {
                             <Paper className={classes.tweetsHeader} square variant="outlined">
                                 <Typography variant="h6">Главная</Typography>
                             </Paper>
-                            <AddTweetForm classes={classes}/>
+                            <AddTweetForm/>
                             <Box className={classes.tweetsDivider}/>
                         </Route>
                     </Paper>

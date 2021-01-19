@@ -31,7 +31,7 @@ const Tweet: FC<Props> = ({ classes, tweet }): ReactElement => {
                             <b style={{ marginRight: '5px' }}>{tweet.user.fullname}</b>
                             <span style={{ color: 'rgb(91, 112, 131)' }}>@{tweet.user.username} · 1 ч</span>
                         </Typography>
-                        <Typography variant="body1">
+                        <Typography variant="body1" className={classes.tweetText}>
                             {tweet.text}
                         </Typography>
                         <Box className={classes.tweetActions}>

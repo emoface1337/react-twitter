@@ -8,7 +8,7 @@ export const theme = createMuiTheme({
             fontSize: 15
         },
         body2: {
-            fontSize: 13,
+            fontSize: 15,
             color: 'rgb(91, 112, 131)'
         }
     },
@@ -103,7 +103,7 @@ export const useHomeStyles = makeStyles((theme) => ({
     },
     loadingWrapper: {
         textAlign: 'center',
-        padding: '30px 0',
+        padding: '30px 0'
     },
     menuWrapper: {
         position: 'sticky',
@@ -197,9 +197,12 @@ export const useHomeStyles = makeStyles((theme) => ({
     tweetContent: {
         flexGrow: 1
     },
+    tweetText: {
+        wordBreak: 'break-all'
+    },
     tweetActions: {
-        marginTop: '10px',
-        marginLeft: '-10px',
+        paddingTop: '10px',
+        marginLeft: '-8px',
         display: 'flex',
         justifyContent: 'space-between',
         maxWidth: '425px',
@@ -353,7 +356,12 @@ export const useHomeStyles = makeStyles((theme) => ({
         fontWeight: 700,
         margin: '5px 0'
     },
-    recommendedUser: {}
+    recommendedUser: {},
+    fullTweetUser: {
+        display: 'flex',
+        flexDirection: 'column',
+        lineHeight: 'normal'
+    }
 }))
 
 export default theme
