@@ -1,5 +1,4 @@
-import axios from 'axios'
-import { TweetsStateType } from '../store/ducks/tweets/tweets'
+import { axios } from '../core/axios'
 
 export type TweetType = {
     id?: string
@@ -10,17 +9,26 @@ export type TweetType = {
         username: string
         avatarUrl: string
     }
+    createdAt: string
+}
+
+type Response<T> = {
+    status: 'success' | 'error'
+    data: T
 }
 
 export const TweetsApi = {
-    async fetchTweets(): Promise<TweetsStateType['tweets']> {
-        return await axios.get('/tweets?_sort=id&_order=asc').then(({ data }) => data)
+    async fetchTweets(): Promise<TweetType[]> {
+        const { data } = await axios.get<Response<TweetType[]>>('/tweets')
+        return data.data
     },
     async fetchTweet(id: string): Promise<TweetType> {
-        return await axios.get('/tweets?_id=' + id).then(({ data }) => data)
+        const { data } = await axios.get<Response<TweetType>>('/tweets/' + id)
+        return data.data
     },
-    async addTweet(tweet: TweetType): Promise<TweetType> {
-        return await axios.post('/tweets', tweet).then(({ data }) => data)
+    async addTweet(text: string): Promise<TweetType> {
+        const { data } = await axios.post<Response<TweetType>>('/tweets', { text })
+        return data.data
     }
 }
 

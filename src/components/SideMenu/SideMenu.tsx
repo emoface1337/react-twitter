@@ -14,6 +14,7 @@ import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined'
 import AddTweetDialog from '../AddTweetDialog/AddTweetDialog'
 import AddTweetForm from '../AddTweetForm/AddTweetForm'
+import SideMenuProfile from '../SideMenuProfile/SideMenuProfile'
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>
@@ -47,37 +48,39 @@ const SideMenu: FC<Props> = ({ classes }): ReactElement => {
     }
 
     return (
-        <Box className={classes.menuWrapper}>
-            <Link to="/home" style={{ display: 'inline-block' }}>
-                <IconButton>
-                    <Twitter color="primary" style={{ fontSize: '33px' }}/>
-                </IconButton>
-            </Link>
-            <nav className={classes.nav}>
-                {
-                    menuItems.map(item => (
-                        <div key={item.title} style={{ padding: '5px 0' }}>
-                            <Button
-                                variant="text"
-                                color="primary"
-                                startIcon={item.icon}
-                                className={classes.navLinkButton}
-                            >
-                                {item.title}
-                            </Button>
-                        </div>
-                    ))
-                }
-            </nav>
-            <Button color="primary" variant="contained" fullWidth className={classes.tweetButton}
-                    onClick={handleClickOpenAddTweetDialog}>
-                Твитнуть
-            </Button>
-            <AddTweetDialog onClose={handleClose} visible={visibleModal}>
-                <AddTweetForm/>
-            </AddTweetDialog>
+        <Box className={classes.sideMenu}>
+            <Box>
+                <Link to="/home" style={{ display: 'inline-block' }}>
+                    <IconButton>
+                        <Twitter color="primary" style={{ fontSize: '33px' }}/>
+                    </IconButton>
+                </Link>
+                <nav className={classes.nav}>
+                    {
+                        menuItems.map(item => (
+                            <div key={item.title} style={{ padding: '5px 0' }}>
+                                <Button
+                                    variant="text"
+                                    color="primary"
+                                    startIcon={item.icon}
+                                    className={classes.navLinkButton}
+                                >
+                                    {item.title}
+                                </Button>
+                            </div>
+                        ))
+                    }
+                </nav>
+                <Button color="primary" variant="contained" fullWidth className={classes.tweetButton}
+                        onClick={handleClickOpenAddTweetDialog}>
+                    Твитнуть
+                </Button>
+                <AddTweetDialog onClose={handleClose} visible={visibleModal}>
+                    <AddTweetForm/>
+                </AddTweetDialog>
+            </Box>
+            <SideMenuProfile classes={classes}/>
         </Box>
-
     )
 }
 

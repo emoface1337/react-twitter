@@ -57,20 +57,24 @@ type TweetActionTypes = InferActionsTypes<typeof tweetActions>
 export const tweetReducer = produce((draft: Draft<TweetStateType>, action: TweetActionTypes) => {
 
     switch (action.type) {
+
         case TweetActionsType.SET_TWEET: {
             draft.tweet = action.payload
             draft.loadingStatus = LoadingStatusEnum.LOADED
             break
         }
+
         case TweetActionsType.FETCH_TWEET: {
             draft.tweet = undefined as unknown as TweetType
             draft.loadingStatus = LoadingStatusEnum.LOADING
             break
         }
+
         case TweetActionsType.SET_LOADING_STATE: {
             draft.loadingStatus = action.payload
             break
         }
+
         default:
             break
     }

@@ -1,6 +1,7 @@
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles'
 import { red } from '@material-ui/core/colors'
 import { Shadows } from '@material-ui/core/styles/shadows'
+import { fade } from '@material-ui/core/styles/colorManipulator'
 
 export const theme = createMuiTheme({
     typography: {
@@ -105,9 +106,33 @@ export const useHomeStyles = makeStyles((theme) => ({
         textAlign: 'center',
         padding: '30px 0'
     },
-    menuWrapper: {
-        position: 'sticky',
-        top: 0
+    sideMenu: {
+        margin: '0 0 0 auto',
+        width: '275px',
+        height: '100%',
+        position: 'fixed',
+        top: 0,
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'column'
+    },
+    currentUser: {
+        margin: '10px 0',
+        height: '60px',
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        cursor: 'pointer',
+        padding: '10px',
+        borderRadius: '30px',
+        '&:hover': {
+            backgroundColor: fade(theme.palette.primary.main, 0.1)
+        }
+    },
+    currentUserContent: {
+        flexGrow: 1,
+        margin: '0 10px',
+        color: '#000'
     },
     nav: {
         display: 'inline-flex',
@@ -129,7 +154,7 @@ export const useHomeStyles = makeStyles((theme) => ({
     tweetButton: {
         boxShadow: 'rgba(0, 0, 0, 0.08) 0px 8px 28px',
         height: '47px',
-        width: '80%'
+        width: '90%'
     },
     rightSideWrapper: {
         position: 'sticky',
@@ -156,11 +181,18 @@ export const useHomeStyles = makeStyles((theme) => ({
         fontSize: 25,
         color: '#5b7083'
     },
-    tweetsWrapper: {
+    pageStickyHeader: {
         borderTop: 0,
-        borderBottom: 0
+        borderBottom: 0,
+        position: 'sticky',
+        top: 0,
+        zIndex: 9999
     },
-    tweetsHeader: {
+    addTweetMainWrapper: {
+        padding: '10px 15px',
+        borderTop: 0
+    },
+    tweetMainWrapper: {
         display: 'flex',
         alignItems: 'center',
         borderLeft: 0,
@@ -179,11 +211,13 @@ export const useHomeStyles = makeStyles((theme) => ({
             cursor: 'pointer'
         }
     },
-    tweetLink: {
-        color: 'inherit',
-        textDecoration: 'none'
+    tweetHeader: {
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'space-between'
     },
     tweetWrapper: {
+        width: '100%',
         display: 'flex'
     },
     tweetAvatar: {
@@ -364,4 +398,10 @@ export const useHomeStyles = makeStyles((theme) => ({
     }
 }))
 
+export const popoverPaperProps = {
+    style: {
+        // width: '150px',
+        boxShadow: 'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px'
+    }
+}
 export default theme

@@ -4,8 +4,8 @@ import { TweetsApi, TweetType } from '../../../api/tweetsApi'
 
 export function* fetchTweetRequest({ payload: tweetId }: FetchTweetInterface) {
     try {
-        const data: TweetType[] = yield call(TweetsApi.fetchTweet, tweetId)
-        yield put(tweetActions.setTweet(data[0]))
+        const data: TweetType = yield call(TweetsApi.fetchTweet, tweetId)
+        yield put(tweetActions.setTweet(data))
     } catch (e) {
         yield put(tweetActions.setLoadingState(LoadingStatusEnum.ERROR))
     }

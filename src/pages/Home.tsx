@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TweetsActions } from '../store/ducks/tweets/tweets'
 import { RootState } from '../store'
 import { useHomeStyles } from '../theme/theme'
-import { themesActions } from '../store/ducks/themes/themes'
+// import { themesActions } from '../store/ducks/themes/themes'
 import { Route } from 'react-router-dom'
 import { tweetsSelectors } from '../store/ducks/tweets/selectors'
 
@@ -29,7 +29,7 @@ const Home: FC = (): ReactElement => {
 
     useEffect(() => {
         dispatch(TweetsActions.fetchTweets())
-        dispatch(themesActions.fetchThemes())
+        // dispatch(themesActions.fetchThemes())
     }, [dispatch])
 
     return (
@@ -39,22 +39,23 @@ const Home: FC = (): ReactElement => {
                     <SideMenu classes={classes}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper className={classes.tweetsWrapper} square variant="outlined">
+                    <Paper className={classes.pageStickyHeader} square variant="outlined">
                         <Route path={['/home/tweet', '/home/search']}>
-                            <Paper className={classes.tweetsHeader} square variant="outlined">
+                            <Paper className={classes.tweetMainWrapper} square
+                                   variant="outlined">
                                 <BackButton/>
                                 <Typography variant="h6">Твитнуть</Typography>
                             </Paper>
                         </Route>
                         <Route path={'/home'} exact>
-                            <Paper className={classes.tweetsHeader} square variant="outlined">
+                            <Paper className={classes.tweetMainWrapper} square variant="outlined">
                                 <Typography variant="h6">Главная</Typography>
                             </Paper>
-                            <AddTweetForm/>
-                            <Box className={classes.tweetsDivider}/>
                         </Route>
                     </Paper>
                     <Route path="/home" exact>
+                        <AddTweetForm/>
+                        <Box className={classes.tweetsDivider}/>
                         {
                             isLoading
                                 ?

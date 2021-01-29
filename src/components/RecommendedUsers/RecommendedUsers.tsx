@@ -51,7 +51,7 @@ const RecommendedUsers: FC<Props> = ({ classes }) => {
             <List className={recommendedUsersClasses.list} component="div">
                 {
                     Array(3).fill(0).map(() =>
-                        <ListItem className={recommendedUsersClasses.listItem} ContainerComponent="div">
+                        <ListItem className={recommendedUsersClasses.listItem} ContainerComponent="div" key={Math.random()}>
                             <ListItemAvatar>
                                 <Avatar style={{ width: '49px', height: '49px' }}>
                                     <img

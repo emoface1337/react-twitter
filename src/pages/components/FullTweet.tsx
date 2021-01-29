@@ -1,20 +1,26 @@
 import React, { FC, ReactElement, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import classNames from 'classnames'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { useHomeStyles } from '../../theme/theme'
 import { RootState } from '../../store'
-import { useDispatch, useSelector } from 'react-redux'
-import { tweetActions } from '../../store/ducks/tweet/tweet'
 
+import { tweetActions } from '../../store/ducks/tweet/tweet'
 import { tweetIsLoadingSelector, tweetSelector } from '../../store/ducks/tweet/selectors'
+
 import { Avatar, Box, CircularProgress, Typography } from '@material-ui/core'
-import classNames from 'classnames'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
+
+import format from 'date-fns/format'
+import ru from 'date-fns/locale/ru'
 
 const useFullTweetClasses = makeStyles(() => ({
     tweetWrapper: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        width: '100%'
     },
     header: {
         display: 'flex',
@@ -67,7 +73,7 @@ const FullTweet: FC = (): ReactElement | null => {
 
     if (tweet)
         return (
-            <Paper className={classNames(classes.tweet, classes.tweetsHeader)} square variant="outlined"
+            <Paper className={classNames(classes.tweet, classes.tweetMainWrapper)} square variant="outlined"
                    component="article">
                 <Box className={fullTweetClasses.tweetWrapper}>
                     <Box className={fullTweetClasses.header}>
@@ -86,7 +92,7 @@ const FullTweet: FC = (): ReactElement | null => {
                         </Box>
                         <Box className={fullTweetClasses.tweetInfo}>
                             <Typography variant={'body2'}>
-                                12:51 AM · 8 янв. 2021 г.
+                                {format(new Date(tweet.createdAt), 'H:mm', { locale: ru })} · {format(new Date(tweet.createdAt), 'dd MMM, yyyy г.', { locale: ru })}
                             </Typography>
                             <span className={fullTweetClasses.tweetInfoSeparator}>·</span>
                             <Typography variant={'body2'}>

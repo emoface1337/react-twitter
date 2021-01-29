@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.9.10",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
+    "date-fns": "^2.16.1",
     "immer": "^8.0.0",
     "json-server": "^0.16.3",
     "react": "^17.0.1",
@@ -36,7 +37,7 @@
     "eject": "react-scripts eject",
     "server": "json-server --port 7777 --watch ./public/db.json"
   },
-  "proxy": "http://localhost:7777",
+  "proxy": "http://localhost:6666",
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -55,20 +55,24 @@ type ThemesActionTypes = InferActionsTypes<typeof themesActions>
 export const themesReducer = produce((draft: Draft<ThemesStateType>, action: ThemesActionTypes) => {
 
     switch (action.type) {
+
         case ThemesActionsType.SET_ITEMS: {
             draft.themes = action.payload
             draft.loadingStatus = LoadingStatusEnum.LOADED
             break
         }
+
         case ThemesActionsType.FETCH_ITEMS: {
             draft.themes = []
             draft.loadingStatus = LoadingStatusEnum.LOADING
             break
         }
+
         case ThemesActionsType.SET_LOADING_STATE: {
             draft.loadingStatus = action.payload
             break
         }
+
         default:
             break
     }

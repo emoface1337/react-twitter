@@ -52,7 +52,7 @@ const AddTweetForm: FC = (): ReactElement => {
     }
 
     return (
-        <Paper className={classes.tweetsHeader} square variant="outlined">
+        <Paper className={classes.addTweetMainWrapper} square variant="outlined">
             <Box className={classes.addTweetWrapper}>
                 <Box className={classes.addTweetAvatarBlock}>
                     <Avatar alt="Max Verstappen"

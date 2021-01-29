@@ -20,7 +20,7 @@ type ModalProps = {
     onClose: () => void
 }
 
-export const AddTweetDialog: FC<ModalProps> = ({ children, visible, onClose }): ReactElement => {
+const AddTweetDialog: FC<ModalProps> = ({ children, visible, onClose }): ReactElement => {
 
     const classes = useStyles()
 

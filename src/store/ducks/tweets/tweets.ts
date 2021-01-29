@@ -92,16 +92,19 @@ type TweetsActionTypes = InferActionsTypes<typeof TweetsActions>
 export const tweetsReducer = produce((draft: Draft<TweetsStateType>, action: TweetsActionTypes) => {
 
     switch (action.type) {
+
         case TweetsActionsType.SET_ITEMS: {
             draft.tweets = action.payload
             draft.loadingStatus = LoadingTweetsStatusEnum.LOADED
             break
         }
+
         case TweetsActionsType.FETCH_ITEMS: {
             draft.tweets = []
             draft.loadingStatus = LoadingTweetsStatusEnum.LOADING
             break
         }
+
         case TweetsActionsType.SET_LOADING_STATE: {
             draft.loadingStatus = action.payload
             break
