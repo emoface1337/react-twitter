@@ -2,6 +2,7 @@ import produce, { Draft } from 'immer'
 import { TweetType } from '../../../api/tweetsApi'
 import { InferActionsTypes } from '../../index'
 import { Action } from 'redux'
+import { LoadingStatusEnum } from '../../types'
 
 export enum TweetActionsType {
     SET_TWEET = 'tweet/SET_TWEET',
@@ -37,13 +38,6 @@ export const tweetActions = {
         type: TweetActionsType.FETCH_TWEET,
         payload: id
     })
-}
-
-export enum LoadingStatusEnum {
-    LOADED = 'LOADED',
-    LOADING = 'LOADING',
-    ERROR = 'ERROR',
-    NEVER = 'NEVER'
 }
 
 const initialState = {

@@ -1,11 +1,13 @@
 import React, { FC, ReactElement, useState } from 'react'
 
-import { Button, FormGroup, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Button, makeStyles, Typography } from '@material-ui/core'
 import { Twitter } from '@material-ui/icons'
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline'
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined'
-import Modal from '../components/Dialog/Dialog'
+
+import SignInModal from './SignInModal'
+import SignUpModal from './SignUpModal'
 
 const useStyles = makeStyles(() => ({
         wrapper: {
@@ -119,62 +121,8 @@ const Sign: FC = (): ReactElement => {
                     <Button onClick={handleClickOpenSignUp} variant="contained" color="primary" fullWidth
                             style={{ marginBottom: 20 }}>Зарегистрироваться</Button>
                     <Button onClick={handleClickOpenSignIn} variant="outlined" color="primary" fullWidth>Войти</Button>
-                    <Modal title="Войти в аккаунт" visible={visibleModal === 'signIn'} onClose={handleClose}>
-                        <FormGroup>
-                            <TextField
-                                autoFocus
-                                style={{ marginBottom: 20 }}
-                                id="email"
-                                label="Почта"
-                                type="email"
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                variant="filled"
-                            />
-                            <TextField
-                                style={{ marginBottom: 20 }}
-                                id="password"
-                                label="Пароль"
-                                type="password"
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                variant="filled"
-                            />
-                        </FormGroup>
-                        <Button onClick={handleClose} color="primary" variant="contained" fullWidth>
-                            Войти
-                        </Button>
-                    </Modal>
-                    <Modal title="Создайте учётную запись" visible={visibleModal === 'signUp'} onClose={handleClose}>
-                        <FormGroup>
-                            <TextField
-                                autoFocus
-                                style={{ marginBottom: 20 }}
-                                id="email"
-                                label="Почта"
-                                type="email"
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                variant="filled"
-                            />
-                            <TextField
-                                style={{ marginBottom: 20 }}
-                                id="password"
-                                label="Пароль"
-                                type="password"
-                                InputLabelProps={{
-                                    shrink: true
-                                }}
-                                variant="filled"
-                            />
-                        </FormGroup>
-                        <Button onClick={handleClose} color="primary" variant="contained" fullWidth>
-                            Зарегистрироваться
-                        </Button>
-                    </Modal>
+                    <SignInModal open={visibleModal === 'signIn'} onClose={handleClose}/>
+                    <SignUpModal open={visibleModal === 'signUp'} onClose={handleClose}/>
                 </div>
             </div>
         </div>

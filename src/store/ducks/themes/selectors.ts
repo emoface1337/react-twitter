@@ -1,5 +1,5 @@
 import { RootState } from '../../index'
-import { LoadingStatusEnum } from './themes'
+import { LoadingStatusEnum } from '../../types'
 
 export const themesSelector = (state: RootState) => state.themes.themes
 export const themesLoadingStatusSelector = (state: RootState): LoadingStatusEnum => state.themes.loadingStatus

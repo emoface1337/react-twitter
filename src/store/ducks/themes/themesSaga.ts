@@ -1,6 +1,7 @@
 import { call, takeEvery, put } from 'redux-saga/effects'
-import { LoadingStatusEnum, themesActions, ThemesActionsType } from './themes'
+import { themesActions, ThemesActionsType } from './themes'
 import { ThemesApi } from '../../../api/themesApi'
+import { LoadingStatusEnum } from '../../types'
 
 export function* fetchThemesRequest() {
     try {

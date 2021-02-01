@@ -2,6 +2,7 @@ import produce, { Draft } from 'immer'
 import { InferActionsTypes } from '../../index'
 import { Action } from 'redux'
 import { ThemeType } from '../../../api/themesApi'
+import { LoadingStatusEnum } from '../../types'
 
 export enum ThemesActionsType {
     SET_ITEMS = 'themes/SET_ITEMS',
@@ -35,13 +36,6 @@ export const themesActions = {
     fetchThemes: (): FetchThemesInterface => ({
         type: ThemesActionsType.FETCH_ITEMS
     })
-}
-
-export enum LoadingStatusEnum {
-    LOADED = 'LOADED',
-    LOADING = 'LOADING',
-    ERROR = 'ERROR',
-    NEVER = 'NEVER'
 }
 
 const initialState = {

@@ -1,13 +1,13 @@
 import React from 'react'
-import Sign from './pages/Sign'
+import Sign from './pages/Sign/Sign'
 import { Route, Switch } from 'react-router-dom'
 import Home from './pages/Home'
 
 //TODO:
 // 1. linkify tweet
-// 2. desc sort tweets fetching
 
 const App = () => {
+
     return (
         <div className="App">
             <Switch>

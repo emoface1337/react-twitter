@@ -1,13 +1,14 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { AddingTweetStatusEnum, AddTweetInterface, LoadingTweetsStatusEnum, TweetsActions, TweetsActionsType } from './tweets'
+import { AddingTweetStatusEnum, AddTweetInterface, TweetsActions, TweetsActionsType } from './tweets'
 import { TweetsApi, TweetType } from '../../../api/tweetsApi'
+import { LoadingStatusEnum } from '../../types'
 
 export function* fetchTweetsRequest() {
     try {
         const data = yield call(TweetsApi.fetchTweets)
         yield put(TweetsActions.setTweets(data))
     } catch (e) {
-        yield put(TweetsActions.setLoadingState(LoadingTweetsStatusEnum.ERROR))
+        yield put(TweetsActions.setLoadingState(LoadingStatusEnum.ERROR))
     }
 }
 

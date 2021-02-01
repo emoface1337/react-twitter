@@ -18,7 +18,6 @@ import RecommendedUsers from '../components/RecommendedUsers/RecommendedUsers'
 import BackButton from '../components/BackButton/BackButton'
 import FullTweet from './components/FullTweet'
 
-
 const Home: FC = (): ReactElement => {
 
     const dispatch = useDispatch()

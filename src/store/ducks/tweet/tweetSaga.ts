@@ -1,6 +1,7 @@
 import { call, takeLatest, put } from 'redux-saga/effects'
-import { FetchTweetInterface, LoadingStatusEnum, tweetActions, TweetActionsType } from './tweet'
+import { FetchTweetInterface,tweetActions, TweetActionsType } from './tweet'
 import { TweetsApi, TweetType } from '../../../api/tweetsApi'
+import { LoadingStatusEnum } from '../../types'
 
 export function* fetchTweetRequest({ payload: tweetId }: FetchTweetInterface) {
     try {
