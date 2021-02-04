@@ -17,5 +17,8 @@ export const tweetsSelectors = {
     },
     isTweetErrorStatusSelector: function (state: RootState): boolean {
         return this.addingTweetStatusSelector(state) === AddingTweetStatusEnum.ERROR
+    },
+    isTweetAddedSelector: function (state: RootState): boolean {
+        return this.addingTweetStatusSelector(state) === AddingTweetStatusEnum.LOADED
     }
 }

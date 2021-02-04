@@ -71,6 +71,7 @@ export const TweetsActions = {
 export enum AddingTweetStatusEnum {
     LOADING = 'LOADING',
     ERROR = 'ERROR',
+    SUCCESS = 'SUCCESS',
     NEVER = 'NEVER'
 }
 
@@ -111,7 +112,7 @@ export const tweetsReducer = produce((draft: Draft<TweetsStateType>, action: Twe
 
         case TweetsActionsType.FETCH_ADD_TWEET_SUCCESS: {
             draft.tweets.unshift(action.payload)
-            draft.addingTweetStatus = AddingTweetStatusEnum.NEVER
+            draft.addingTweetStatus = AddingTweetStatusEnum.LOADED
             break
         }
 

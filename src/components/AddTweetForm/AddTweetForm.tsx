@@ -13,6 +13,8 @@ import { TweetsActions } from '../../store/ducks/tweets/tweets'
 import LoadingButton from '../LoadingButton/LoadingButton'
 
 import { tweetsSelectors } from '../../store/ducks/tweets/selectors'
+import EmojiPicker from '../EmojiPicker/EmojiPicker'
+import { EmojiData } from 'emoji-mart'
 
 const Alert = (props: AlertProps) => {
     return <MuiAlert elevation={0} variant="filled" {...props} />
@@ -21,6 +23,7 @@ const Alert = (props: AlertProps) => {
 
 // TODO:
 //  1. при ошибке сохранение текста твита
+//  2. Рефакторинг данной части (селекторы тоже)
 
 const AddTweetForm: FC = (): ReactElement => {
 
@@ -28,6 +31,7 @@ const AddTweetForm: FC = (): ReactElement => {
 
     const isTweetAdding = useSelector((state: RootState) => tweetsSelectors.isTweetLoadingStatusSelector(state))
     const isTweetAddingError = useSelector((state: RootState) => tweetsSelectors.isTweetErrorStatusSelector(state))
+    const isTweetAdded = useSelector((state: RootState) => tweetsSelectors.isTweetAddedSelector(state))
 
     const maxLength: number = 280
 
@@ -37,6 +41,9 @@ const AddTweetForm: FC = (): ReactElement => {
     const [isTextareaMaxLength, setIsTextareaMaxLength] = useState(false)
 
     const circularProgressValue: number = Math.ceil((textareaValue.length / maxLength) * 100)
+
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+    const popoverOpen = Boolean(anchorEl)
 
     const handleChangeTextarea = (event: FormEvent<HTMLTextAreaElement>) => {
         if (event.currentTarget) {
@@ -48,7 +55,23 @@ const AddTweetForm: FC = (): ReactElement => {
 
     const handleAddTweetClick = (): void => {
         dispatch(TweetsActions.addTweet(textareaValue))
-        setTextareaValue('')
+        if (isTweetAdded) {
+            setTextareaValue('')
+        }
+    }
+
+    const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handlePopoverClose = () => {
+        setAnchorEl(null)
+    }
+
+    const addEmojiToTextArea = (emoji: EmojiData) => {
+        if ('native' in emoji) {
+            setTextareaValue(textareaValue + emoji.native)
+        }
     }
 
     return (
@@ -74,9 +97,11 @@ const AddTweetForm: FC = (): ReactElement => {
                                 </IconButton>
                             </Box>
                             <Box className={classes.addTweetAction}>
-                                <IconButton>
+                                <IconButton onClick={handlePopoverOpen}>
                                     <SentimentVerySatisfiedOutlinedIcon style={{ fontSize: '1.5rem' }} color="primary"/>
                                 </IconButton>
+                                <EmojiPicker open={popoverOpen} handlePopoverClose={handlePopoverClose}
+                                             anchorEl={anchorEl} addEmojiToTextArea={addEmojiToTextArea}/>
                             </Box>
                         </Box>
                         <Box style={{ display: 'flex', alignItems: 'center' }}>
