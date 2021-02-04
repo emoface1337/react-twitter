@@ -90,6 +90,11 @@ export const theme = createMuiTheme({
                     marginRight: 20
                 }
             }
+        },
+        MuiPaper: {
+            outlined: {
+                border: '1px solid #ebeef0'
+            }
         }
     }
 })
@@ -204,7 +209,7 @@ export const useHomeStyles = makeStyles((theme) => ({
         }
     },
     tweet: {
-        border: '1px solid rgba(0,0,0,0.12)',
+        border: '1px solid #ebeef0',
         borderTop: 'none',
         '&:hover': {
             backgroundColor: 'rgba(0,0,0,0.03)',
@@ -344,7 +349,9 @@ export const useHomeStyles = makeStyles((theme) => ({
     tweetsDivider: {
         backgroundColor: 'rgb(247, 249, 250)',
         height: '10px',
-        borderBottom: '1px solid rgba(0,0,0,0.12)'
+        borderBottom: '1px solid #ebeef0',
+        borderLeft: '1px solid #ebeef0',
+        borderRight: '1px solid #ebeef0'
     },
     circularProgressBlock: {
         position: 'relative',
