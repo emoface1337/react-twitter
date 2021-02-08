@@ -1,13 +1,12 @@
-import React, { FC, FormEvent, ReactElement, useState } from 'react'
+import React, { FC, FormEvent, ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store'
 
-import { Avatar, Box, CircularProgress, Divider, IconButton, Paper, TextareaAutosize } from '@material-ui/core'
+import { Avatar, Box, CircularProgress, Divider, IconButton, Paper, Snackbar, TextareaAutosize } from '@material-ui/core'
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import SentimentVerySatisfiedOutlinedIcon from '@material-ui/icons/SentimentVerySatisfiedOutlined'
 import { useHomeStyles } from '../../theme/theme'
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
-import Fade from '@material-ui/core/Fade'
 
 import { TweetsActions } from '../../store/ducks/tweets/tweets'
 import LoadingButton from '../LoadingButton/LoadingButton'
@@ -20,18 +19,13 @@ const Alert = (props: AlertProps) => {
     return <MuiAlert elevation={0} variant="filled" {...props} />
 }
 
-
-// TODO:
-//  1. при ошибке сохранение текста твита
-//  2. Рефакторинг данной части (селекторы тоже)
-
 const AddTweetForm: FC = (): ReactElement => {
 
     const classes = useHomeStyles()
 
-    const isTweetAdding = useSelector((state: RootState) => tweetsSelectors.isTweetLoadingStatusSelector(state))
-    const isTweetAddingError = useSelector((state: RootState) => tweetsSelectors.isTweetErrorStatusSelector(state))
-    const isTweetAdded = useSelector((state: RootState) => tweetsSelectors.isTweetAddedSelector(state))
+    const isTweetAdding = useSelector((state: RootState) => tweetsSelectors.isTweetAddingSelector(state))
+    const isTweetAddingError = useSelector((state: RootState) => tweetsSelectors.isTweetAddingErrorSelector(state))
+    const isTweetAddingSuccess = useSelector((state: RootState) => tweetsSelectors.isTweetAddedSelector(state))
 
     const maxLength: number = 280
 
@@ -39,6 +33,7 @@ const AddTweetForm: FC = (): ReactElement => {
 
     const [textareaValue, setTextareaValue] = useState('')
     const [isTextareaMaxLength, setIsTextareaMaxLength] = useState(false)
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
 
     const circularProgressValue: number = Math.ceil((textareaValue.length / maxLength) * 100)
 
@@ -55,9 +50,6 @@ const AddTweetForm: FC = (): ReactElement => {
 
     const handleAddTweetClick = (): void => {
         dispatch(TweetsActions.addTweet(textareaValue))
-        if (isTweetAdded) {
-            setTextareaValue('')
-        }
     }
 
     const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -73,6 +65,20 @@ const AddTweetForm: FC = (): ReactElement => {
             setTextareaValue(textareaValue + emoji.native)
         }
     }
+
+    const handleSnackbarClose = () => {
+        setIsSnackbarOpen(false)
+    }
+
+    useEffect(() => {
+        if (isTweetAddingError) {
+            setIsSnackbarOpen(true)
+        }
+        if (isTweetAddingSuccess) {
+            setIsSnackbarOpen(true)
+            setTextareaValue('')
+        }
+    }, [isTweetAddingError, isTweetAddingSuccess])
 
     return (
         <Paper className={classes.addTweetMainWrapper} square variant="outlined">
@@ -127,11 +133,13 @@ const AddTweetForm: FC = (): ReactElement => {
                             />
                         </Box>
                     </Box>
-                    <Fade in={isTweetAddingError} timeout={500} unmountOnExit={true}>
-                        <Alert severity="error" className={classes.addTweetFormAlert}>
-                            Ошибка при добавлении твита :(
+                    <Snackbar open={isSnackbarOpen} autoHideDuration={1500} onClose={handleSnackbarClose}>
+                        <Alert severity={isTweetAddingError ? 'error' : 'success'}>
+                            {
+                                isTweetAddingError ? 'Ошибка при добавлении твита :(' : 'Твит успешно добавлен'
+                            }
                         </Alert>
-                    </Fade>
+                    </Snackbar>
                 </Box>
             </Box>
         </Paper>

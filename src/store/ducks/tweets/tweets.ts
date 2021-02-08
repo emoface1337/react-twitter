@@ -9,7 +9,7 @@ export enum TweetsActionsType {
     FETCH_ITEMS = 'tweets/FETCH_ITEMS',
     SET_LOADING_STATE = 'tweets/SET_LOADING_STATE',
     ADD_TWEET = 'tweets/ADD_TWEET',
-    FETCH_ADD_TWEET_SUCCESS = 'tweets/FETCH_ADD_TWEET_SUCCESS',
+    FETCH_ADDING_TWEET_SUCCESS = 'tweets/FETCH_ADDING_TWEET_SUCCESS',
     SET_ADDING_STATE = 'tweets/SET_ADDING_STATE'
 }
 
@@ -33,7 +33,7 @@ export interface AddTweetInterface extends Action<TweetsActionsType> {
 }
 
 export interface FetchAddTweetInterface extends Action<TweetsActionsType> {
-    type: TweetsActionsType.FETCH_ADD_TWEET_SUCCESS,
+    type: TweetsActionsType.FETCH_ADDING_TWEET_SUCCESS,
     payload: TweetType
 }
 
@@ -59,7 +59,7 @@ export const TweetsActions = {
         payload: text
     } as const),
     fetchAddTweetSuccess: (tweet: TweetType): FetchAddTweetInterface => ({
-        type: TweetsActionsType.FETCH_ADD_TWEET_SUCCESS,
+        type: TweetsActionsType.FETCH_ADDING_TWEET_SUCCESS,
         payload: tweet
     } as const),
     setAddingTweetState: (state: AddingTweetStatusEnum): SetAddingTweetStateInterface => ({
@@ -110,9 +110,9 @@ export const tweetsReducer = produce((draft: Draft<TweetsStateType>, action: Twe
             break
         }
 
-        case TweetsActionsType.FETCH_ADD_TWEET_SUCCESS: {
+        case TweetsActionsType.FETCH_ADDING_TWEET_SUCCESS: {
             draft.tweets.unshift(action.payload)
-            draft.addingTweetStatus = AddingTweetStatusEnum.LOADED
+            draft.addingTweetStatus = AddingTweetStatusEnum.SUCCESS
             break
         }
 

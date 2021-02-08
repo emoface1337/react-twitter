@@ -5,7 +5,7 @@ import { AuthApi } from '../../../api/authApi'
 
 export function* fetchSignInRequest({ payload: formData }: FetchSignInInterface) {
     try {
-        const { data } = yield call(AuthApi.signIn, formData)
+        const data = yield call(AuthApi.signIn, formData)
         yield put(UserActions.setUser(data))
         window.localStorage.setItem('token', data.token)
     } catch (e) {

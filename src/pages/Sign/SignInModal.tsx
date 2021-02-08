@@ -8,6 +8,28 @@ import { useDispatch, useSelector } from 'react-redux'
 import { UserActions } from '../../store/ducks/user/user'
 import { RootState } from '../../store'
 import { LoadingStatusEnum } from '../../store/types'
+import { useHistory } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import CheckIcon from '@material-ui/icons/Check'
+
+const useStyles = makeStyles((theme) => ({
+    progressWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px 0 12px 0',
+        height: '75px'
+    },
+    success: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '43px',
+        width: '43px',
+        backgroundColor: theme.palette.success.main,
+        borderRadius: 9999
+    }
+}))
 
 type Props = {
     open: boolean
@@ -24,9 +46,14 @@ const validationSchema = yup.object().shape({
     password: yup.string().min(6, 'Длина пароля меньше 6 символов').required('Введите пароль')
 })
 
+// TODO:
+// 1. fix error status after modal close
+
 const SignInModal: FC<Props> = ({ open, onClose }): ReactElement => {
 
+    const classes = useStyles()
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const loadingStatus = useSelector((state: RootState) => state.user.loadingStatus)
 
@@ -41,9 +68,11 @@ const SignInModal: FC<Props> = ({ open, onClose }): ReactElement => {
 
     useEffect(() => {
         if (loadingStatus === LoadingStatusEnum.LOADED) {
-            onClose()
+            setTimeout(() => {
+                history.push('/home')
+            }, 2000)
         }
-    }, [loadingStatus, onClose])
+    }, [history, loadingStatus, onClose])
 
     return (
         <Modal title="Войти в аккаунт" visible={open} onClose={onClose}>
@@ -85,13 +114,23 @@ const SignInModal: FC<Props> = ({ open, onClose }): ReactElement => {
             </form>
             {
                 loadingStatus === LoadingStatusEnum.LOADING &&
-                <Box style={{ textAlign: 'center', padding: '20px 0 12px 0' }}><CircularProgress/></Box>
+                <Box className={classes.progressWrapper}><CircularProgress/></Box>
             }
             {
                 loadingStatus === LoadingStatusEnum.ERROR &&
                 <Fade in={loadingStatus === LoadingStatusEnum.ERROR} timeout={500}>
-                    <Box style={{ textAlign: 'center', padding: '20px 0 12px 0' }}>
+                    <Box className={classes.progressWrapper}>
                         Неверный логин или пароль
+                    </Box>
+                </Fade>
+            }
+            {
+                loadingStatus === LoadingStatusEnum.LOADED &&
+                <Fade in={loadingStatus === LoadingStatusEnum.LOADED} timeout={2000}>
+                    <Box className={classes.progressWrapper}>
+                        <Box className={classes.success}>
+                            <CheckIcon style={{ color: '#fff' }}/>
+                        </Box>
                     </Box>
                 </Fade>
             }

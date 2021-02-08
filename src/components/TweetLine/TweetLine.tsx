@@ -32,7 +32,8 @@ const TweetLine: FC<Props> = ({ classes }): ReactElement | null => {
             </Box>
         )
     }
-    if (tweets)
+
+    if (tweets.length)
         return (
             <>
                 <Box className={classes.tweetsDivider}/>

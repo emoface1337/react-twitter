@@ -77,7 +77,7 @@ const Sign: FC = (): ReactElement => {
 
     const classes = useStyles()
 
-    const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp'>()
+    const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp' | undefined>()
 
     const handleClickOpenSignIn = (): void => {
         setVisibleModal('signIn')

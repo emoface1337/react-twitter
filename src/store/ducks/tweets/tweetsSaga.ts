@@ -5,7 +5,7 @@ import { LoadingStatusEnum } from '../../types'
 
 export function* fetchTweetsRequest() {
     try {
-        const data = yield call(TweetsApi.fetchTweets)
+        const data: TweetType[] = yield call(TweetsApi.fetchTweets)
         yield put(TweetsActions.setTweets(data))
     } catch (e) {
         yield put(TweetsActions.setLoadingState(LoadingStatusEnum.ERROR))
@@ -13,19 +13,13 @@ export function* fetchTweetsRequest() {
 }
 
 function* addTweet({ payload: text }: AddTweetInterface) {
-
     try {
-
         yield put(TweetsActions.setAddingTweetState(AddingTweetStatusEnum.LOADING))
-
         const data: TweetType = yield call(TweetsApi.addTweet, text)
-
         yield put(TweetsActions.fetchAddTweetSuccess(data))
-
     } catch (e) {
         yield put(TweetsActions.setAddingTweetState(AddingTweetStatusEnum.ERROR))
     }
-
 }
 
 export function* tweetsSaga() {
