@@ -46,9 +46,6 @@ const validationSchema = yup.object().shape({
     password: yup.string().min(6, 'Длина пароля меньше 6 символов').required('Введите пароль')
 })
 
-// TODO:
-// 1. fix error status after modal close
-
 const SignInModal: FC<Props> = ({ open, onClose }): ReactElement => {
 
     const classes = useStyles()

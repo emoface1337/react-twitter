@@ -8,6 +8,9 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined'
 
 import SignInModal from './SignInModal'
 import SignUpModal from './SignUpModal'
+import { useDispatch } from 'react-redux'
+import { UserActions } from '../../store/ducks/user/user'
+import { LoadingStatusEnum } from '../../store/types'
 
 const useStyles = makeStyles(() => ({
         wrapper: {
@@ -76,6 +79,7 @@ const useStyles = makeStyles(() => ({
 const Sign: FC = (): ReactElement => {
 
     const classes = useStyles()
+    const dispatch = useDispatch()
 
     const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp' | undefined>()
 
@@ -89,6 +93,7 @@ const Sign: FC = (): ReactElement => {
 
     const handleClose = (): void => {
         setVisibleModal(undefined)
+        dispatch(UserActions.setLoadingState(LoadingStatusEnum.NEVER))
     }
 
 
