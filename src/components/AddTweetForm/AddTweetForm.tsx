@@ -1,5 +1,7 @@
 import React, { FC, FormEvent, ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { EmojiData } from 'emoji-mart'
+
 import { RootState } from '../../store'
 
 import { Avatar, Box, CircularProgress, Divider, IconButton, Paper, Snackbar, TextareaAutosize } from '@material-ui/core'
@@ -8,12 +10,12 @@ import SentimentVerySatisfiedOutlinedIcon from '@material-ui/icons/SentimentVery
 import { useHomeStyles } from '../../theme/theme'
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
 
-import { TweetsActions } from '../../store/ducks/tweets/tweets'
 import LoadingButton from '../LoadingButton/LoadingButton'
 
-import { tweetsSelectors } from '../../store/ducks/tweets/selectors'
 import EmojiPicker from '../EmojiPicker/EmojiPicker'
-import { EmojiData } from 'emoji-mart'
+
+import { tweetsSelectors } from '../../store/ducks/tweets/selectors'
+import { TweetsActions } from '../../store/ducks/tweets/tweets'
 
 const Alert = (props: AlertProps) => {
     return <MuiAlert elevation={0} variant="filled" {...props} />

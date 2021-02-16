@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { Button, makeStyles, Typography } from '@material-ui/core'
 import { Twitter } from '@material-ui/icons'
@@ -8,7 +9,7 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined'
 
 import SignInModal from './SignInModal'
 import SignUpModal from './SignUpModal'
-import { useDispatch } from 'react-redux'
+
 import { UserActions } from '../../store/ducks/user/user'
 import { LoadingStatusEnum } from '../../store/types'
 
@@ -95,7 +96,6 @@ const Sign: FC = (): ReactElement => {
         setVisibleModal(undefined)
         dispatch(UserActions.setLoadingState(LoadingStatusEnum.NEVER))
     }
-
 
     return (
         <div className={classes.wrapper}>

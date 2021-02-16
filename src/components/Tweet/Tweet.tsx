@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react'
 import classNames from 'classnames'
 import { useHistory, useLocation } from 'react-router-dom'
+import Linkify from 'react-linkify'
 
 import Paper from '@material-ui/core/Paper'
 import { Avatar, Box, IconButton, Menu, MenuItem, Typography } from '@material-ui/core'
@@ -10,6 +11,7 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { useHomeStyles } from '../../theme/theme'
+
 import { TweetType } from '../../api/tweetsApi'
 import { dateFormatter } from '../../utils/dateFormatter'
 
@@ -44,90 +46,89 @@ const Tweet: FC<Props> = ({ classes, tweet }): ReactElement => {
     }
 
     return (
-        <Box onClick={handleTweetClick}>
-            <Paper className={classNames(classes.tweet, classes.tweetMainWrapper)} square variant="outlined"
-                   component="article">
-                <Box className={classes.tweetWrapper}>
-                    <Box className={classes.tweetAvatar}>
-                        <Avatar alt={tweet.user.fullname}
-                                src={tweet.user.avatarUrl}/>
-                    </Box>
-                    <Box className={classes.tweetContent}>
-                        <Box className={classes.tweetHeader}>
-                            <Typography>
-                                <b style={{ marginRight: '5px' }}>{tweet.user.fullname}</b>
-                                <span
-                                    style={{ color: 'rgb(91, 112, 131)' }}>@{tweet.user.username} · {dateFormatter(new Date(tweet.createdAt))}</span>
-                            </Typography>
-                            <div>
-                                <IconButton style={{ transform: 'rotate(90deg)' }}
-                                            onClick={handleMenuClick}
-                                            size={'small'}
-                                            disableRipple={true}
-                                >
-                                    <MoreVertIcon/>
-                                </IconButton>
-                                <Menu
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'right'
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right'
-                                    }}
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    disableScrollLock={true}
-                                    onClose={handleMenuClose}
-                                    PaperProps={{
-                                        style: {
-                                            width: '150px',
-                                            boxShadow: 'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px'
-                                        }
-                                    }}
-                                >
-                                    <MenuItem key={1} onClick={handleMenuClose}>
-                                        Редактировать
-                                    </MenuItem>
-                                    <MenuItem key={2} onClick={handleMenuClose}>
-                                        Удалить
-                                    </MenuItem>
-                                </Menu>
-                            </div>
-                        </Box>
-                        <Typography variant="body1" className={classes.tweetText}>
-                            {tweet.text}
+        <Paper className={classNames(classes.tweet, classes.tweetMainWrapper)} square variant="outlined"
+               component="article" onClick={handleTweetClick}>
+            <Box className={classes.tweetWrapper}>
+                <Box className={classes.tweetAvatar}>
+                    <Avatar alt={tweet.user.fullname}
+                            src={tweet.user.avatarUrl}/>
+                </Box>
+                <Box className={classes.tweetContent}>
+                    <Box className={classes.tweetHeader}>
+                        <Typography>
+                            <b style={{ marginRight: '5px' }}>{tweet.user.fullname}</b>
+                            <span
+                                style={{ color: 'rgb(91, 112, 131)' }}>@{tweet.user.username} · {dateFormatter(new Date(tweet.createdAt))}</span>
                         </Typography>
-                        <Box className={classes.tweetActions}>
-                            <Box className={classNames(classes.tweetAction, classes.tweetActionsComment)}>
-                                <IconButton>
-                                    <ModeCommentOutlinedIcon style={{ fontSize: '1.25rem' }}/>
-                                </IconButton>
-                                <span>12</span>
-                            </Box>
-                            <Box className={classNames(classes.tweetAction, classes.tweetActionsRetweet)}>
-                                <IconButton>
-                                    <RepeatOutlinedIcon style={{ fontSize: '1.25rem' }}/>
-                                </IconButton>
-                                <span>25</span>
-                            </Box>
-                            <Box className={classNames(classes.tweetAction, classes.tweetActionsLike)}>
-                                <IconButton>
-                                    <FavoriteBorderOutlinedIcon style={{ fontSize: '1.25rem' }}/>
-                                </IconButton>
-                                <span>5</span>
-                            </Box>
-                            <Box className={classNames(classes.tweetAction, classes.tweetActionsResend)}>
-                                <IconButton>
-                                    <PublishOutlinedIcon style={{ fontSize: '1.25rem' }}/>
-                                </IconButton>
-                            </Box>
+                        <div>
+                            <IconButton style={{ transform: 'rotate(90deg)' }}
+                                        onClick={handleMenuClick}
+                                        size={'small'}
+                                        disableRipple={true}
+                            >
+                                <MoreVertIcon/>
+                            </IconButton>
+                            <Menu
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right'
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right'
+                                }}
+                                getContentAnchorEl={null}
+                                anchorEl={anchorEl}
+                                open={open}
+                                disableScrollLock={true}
+                                onClose={handleMenuClose}
+                                PaperProps={{
+                                    style: {
+                                        width: '150px',
+                                        boxShadow: 'rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px'
+                                    }
+                                }}
+                            >
+                                <MenuItem key={1} onClick={handleMenuClose}>
+                                    Редактировать
+                                </MenuItem>
+                                <MenuItem key={2} onClick={handleMenuClose}>
+                                    Удалить
+                                </MenuItem>
+                            </Menu>
+                        </div>
+                    </Box>
+                    <Typography variant="body1" className={classes.tweetText}>
+                        <Linkify>{tweet.text}</Linkify>
+                    </Typography>
+                    <Box className={classes.tweetActions}>
+                        <Box className={classNames(classes.tweetAction, classes.tweetActionsComment)}>
+                            <IconButton>
+                                <ModeCommentOutlinedIcon style={{ fontSize: '1.25rem' }}/>
+                            </IconButton>
+                            <span>12</span>
+                        </Box>
+                        <Box className={classNames(classes.tweetAction, classes.tweetActionsRetweet)}>
+                            <IconButton>
+                                <RepeatOutlinedIcon style={{ fontSize: '1.25rem' }}/>
+                            </IconButton>
+                            <span>25</span>
+                        </Box>
+                        <Box className={classNames(classes.tweetAction, classes.tweetActionsLike)}>
+                            <IconButton>
+                                <FavoriteBorderOutlinedIcon style={{ fontSize: '1.25rem' }}/>
+                            </IconButton>
+                            <span>5</span>
+                        </Box>
+                        <Box className={classNames(classes.tweetAction, classes.tweetActionsResend)}>
+                            <IconButton>
+                                <PublishOutlinedIcon style={{ fontSize: '1.25rem' }}/>
+                            </IconButton>
                         </Box>
                     </Box>
                 </Box>
-            </Paper>
-        </Box>
+            </Box>
+        </Paper>
     )
 }
 

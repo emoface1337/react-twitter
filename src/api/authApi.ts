@@ -15,17 +15,26 @@ export type UserType = {
     token: string | undefined
 }
 
-export type SingInDataResponseType = {
+export type AuthResponseType = {
     status: string,
     data: any
 }
 
+export type GetMeResponseType = {
+    status: string
+    data: UserType
+}
+
 export const AuthApi = {
-    async signIn(formData: SignInFormData): Promise<SingInDataResponseType> {
-        const { data } = await axios.post<SingInDataResponseType>('/auth/signin', {
+    async signIn(formData: SignInFormData): Promise<AuthResponseType> {
+        const { data } = await axios.post<AuthResponseType>('/auth/signin', {
             username: formData.email, password: formData.password
         })
         return data.data
+    },
+    async getMe(): Promise<GetMeResponseType> {
+        const { data } = await axios.get<GetMeResponseType>('/auth/me')
+        return data
     }
 }
 

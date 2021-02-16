@@ -1,10 +1,12 @@
 import React from 'react'
-import Sign from './pages/Sign/Sign'
 import { Route, Switch } from 'react-router-dom'
+
+import Sign from './pages/Sign/Sign'
 import Home from './pages/Home'
 
 //TODO:
-// 1. linkify tweet
+// 1. fixing linkify tweet
+// 2. make normal redirection if user is authorized
 
 const App = () => {
 

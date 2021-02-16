@@ -1,7 +1,9 @@
 import produce, { Draft } from 'immer'
-import { TweetType } from '../../../api/tweetsApi'
-import { InferActionsTypes } from '../../index'
 import { Action } from 'redux'
+
+import { TweetType } from '../../../api/tweetsApi'
+
+import { InferActionsTypes } from '../../index'
 import { LoadingStatusEnum } from '../../types'
 
 export enum TweetsActionsType {

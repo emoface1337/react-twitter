@@ -1,16 +1,20 @@
 import React, { FC, ReactElement, useEffect } from 'react'
-import Modal from '../../components/Dialog/Dialog'
-import { Box, Button, CircularProgress, Fade, FormControl, TextField } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { Box, Button, CircularProgress, Fade, FormControl, TextField } from '@material-ui/core'
+
 import { UserActions } from '../../store/ducks/user/user'
 import { RootState } from '../../store'
 import { LoadingStatusEnum } from '../../store/types'
-import { useHistory } from 'react-router-dom'
+
 import { makeStyles } from '@material-ui/core/styles'
 import CheckIcon from '@material-ui/icons/Check'
+
+import Modal from '../../components/Dialog/Dialog'
 
 const useStyles = makeStyles((theme) => ({
     progressWrapper: {

@@ -9,9 +9,10 @@ import { TweetsActions } from '../../store/ducks/tweets/tweets'
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>
+    divider: boolean
 }
 
-const TweetLine: FC<Props> = ({ classes }): ReactElement | null => {
+const TweetLine: FC<Props> = ({ classes, divider }): ReactElement | null => {
 
     const dispatch = useDispatch()
 
@@ -36,11 +37,11 @@ const TweetLine: FC<Props> = ({ classes }): ReactElement | null => {
     if (tweets.length)
         return (
             <>
-                <Box className={classes.tweetsDivider}/>
                 {
-                    tweets.map(tweet =>
-                        <Tweet key={tweet._id} classes={classes} tweet={tweet}/>
-                    )
+                    divider ? <Box className={classes.tweetsDivider}/> : null
+                }
+                {
+                    tweets.map(tweet => <Tweet key={tweet._id} classes={classes} tweet={tweet}/>)
                 }
             </>
         )

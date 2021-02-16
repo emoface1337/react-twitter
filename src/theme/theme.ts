@@ -191,7 +191,7 @@ export const useHomeStyles = makeStyles((theme) => ({
         borderBottom: 0,
         position: 'sticky',
         top: 0,
-        zIndex: 9999
+        zIndex: 10
     },
     addTweetMainWrapper: {
         padding: '10px 15px',

@@ -13,7 +13,7 @@ import SideMenu from '../components/SideMenu/SideMenu'
 import ActualThemes from '../components/ActualThemes/ActualThemes'
 import RecommendedUsers from '../components/RecommendedUsers/RecommendedUsers'
 import BackButton from '../components/BackButton/BackButton'
-import FullTweet from './components/FullTweet'
+import FullTweet from './FullTweet/FullTweet'
 import TweetLine from '../components/TweetLine/TweetLine'
 
 const Home: FC = (): ReactElement => {
@@ -52,7 +52,7 @@ const Home: FC = (): ReactElement => {
                     </Paper>
                     <Route path="/home" exact>
                         <AddTweetForm/>
-                        <TweetLine classes={classes}/>
+                        <TweetLine classes={classes} divider={true}/>
                     </Route>
                     <Route path="/home/tweet/:id" component={FullTweet}/>
                 </Grid>
