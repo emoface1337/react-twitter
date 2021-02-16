@@ -24,7 +24,7 @@ export interface FetchThemesInterface extends Action<ThemesActionsType> {
     type: ThemesActionsType.FETCH_ITEMS
 }
 
-export const themesActions = {
+export const ThemesActions = {
     setThemes: (Themes: ThemesStateType['themes']): SetThemesInterface => ({
         type: ThemesActionsType.SET_ITEMS,
         payload: Themes
@@ -44,7 +44,7 @@ const initialState = {
 }
 
 export type ThemesStateType = typeof initialState
-type ThemesActionTypes = InferActionsTypes<typeof themesActions>
+type ThemesActionTypes = InferActionsTypes<typeof ThemesActions>
 
 export const themesReducer = produce((draft: Draft<ThemesStateType>, action: ThemesActionTypes) => {
 

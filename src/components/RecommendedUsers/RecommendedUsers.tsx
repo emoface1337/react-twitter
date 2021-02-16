@@ -1,7 +1,11 @@
-import React, { FC } from 'react'
-import { Avatar, Box, Button, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Paper, Typography } from '@material-ui/core'
+import React, { FC, useEffect } from 'react'
+import { Avatar, Box, Button, CircularProgress, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Paper, Typography } from '@material-ui/core'
 import { useHomeStyles } from '../../theme/theme'
 import { makeStyles } from '@material-ui/core/styles'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { usersIsLoadedSelector, usersSelector } from '../../store/ducks/recommendedUsers/selectors'
+import { RecommendedUsersActions } from '../../store/ducks/recommendedUsers/recommendedUsers'
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>
@@ -19,29 +23,51 @@ const useStyles = makeStyles((theme) => ({
     },
     list: {
         padding: '0',
-        '& div:last-child': {
-            '& > div:first-child': {
-                borderBottom: 'none',
-                borderRadius: '0 0 16px 16px'
-            }
+        '& > div:last-child': {
+            borderBottom: 'none',
+            borderRadius: '0 0 16px 16px'
         }
     },
     listItem: {
-        padding: '10px 15px',
+        overflow: 'hidden',
+        padding: '10px 15px !important',
         borderBottom: '1px solid rgb(235, 238, 240)',
-        '&:hover':{
+        '&:hover': {
             cursor: 'pointer',
             backgroundColor: 'rgba(0,0,0,0.03)'
         }
     },
+    listItemRoot: {
+        padding: 0
+    },
     listItemText: {
         paddingRight: '97px'
+    },
+    listItemAction: {
+        right: '15px',
+        '&:hover ! div': {
+            backgroundColor: 'pink !important'
+        }
     }
 }))
 
 const RecommendedUsers: FC<Props> = ({ classes }) => {
 
     const recommendedUsersClasses = useStyles()
+    const dispatch = useDispatch()
+
+    const users = useSelector((state: RootState) => usersSelector(state))
+    const isLoaded = useSelector((state: RootState) => usersIsLoadedSelector(state))
+
+    useEffect(() => {
+        dispatch(RecommendedUsersActions.fetchUsers())
+    }, [dispatch])
+
+    if (!isLoaded) {
+        return <Box className={classes.loadingWrapper}>
+            <CircularProgress variant="indeterminate" size="2rem"/>
+        </Box>
+    }
 
     return (
         <Paper className={classes.rightSideBlocksWrapper}>
@@ -50,23 +76,27 @@ const RecommendedUsers: FC<Props> = ({ classes }) => {
             </Box>
             <List className={recommendedUsersClasses.list} component="div">
                 {
-                    Array(3).fill(0).map(() =>
-                        <ListItem className={recommendedUsersClasses.listItem} ContainerComponent="div" key={Math.random()}>
+                    users.map(user =>
+                        <ListItem ContainerComponent="div" key={user._id}
+                                  classes={{
+                                      container: recommendedUsersClasses.listItem,
+                                      root: recommendedUsersClasses.listItemRoot
+                                  }} disableGutters={true}>
                             <ListItemAvatar>
-                                <Avatar style={{ width: '49px', height: '49px' }}>
-                                    <img
-                                        src="https://d3cm515ijfiu6w.cloudfront.net/wp-content/uploads/2020/03/19084551/Max-Verstappen.jpg"
-                                        alt="Max"/>
+                                <Avatar style={{ width: '49px', height: '49px' }}
+                                        alt={user.fullname}
+                                        src={user.avatarUrl}
+                                >
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary="Smoky Moddddd ddddddddddddddddd" secondary="@SmokyMo46"
+                            <ListItemText primary={user.fullname} secondary={`@${user.username}`}
                                           classes={{
                                               primary: recommendedUsersClasses.primary,
                                               secondary: recommendedUsersClasses.secondary
                                           }}
                                           className={recommendedUsersClasses.listItemText}
                             />
-                            <ListItemSecondaryAction style={{ right: '15px' }}>
+                            <ListItemSecondaryAction className={recommendedUsersClasses.listItemAction}>
                                 <Button color="primary" variant="outlined" style={{ width: '82px', height: '39px' }}>
                                     Читать
                                 </Button>

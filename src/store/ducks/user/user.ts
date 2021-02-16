@@ -1,19 +1,19 @@
 import produce, { Draft } from 'immer'
 import { InferActionsTypes } from '../../index'
 import { Action } from 'redux'
-import { UserType } from '../../../api/authApi'
+import { AuthUserType } from '../../../api/authApi'
 import { LoadingStatusEnum } from '../../types'
 import { SignInFormData } from '../../../pages/Sign/SignInModal'
 
 export enum UserActionsType {
     SET_USER_DATA = 'user/SET_USER_DATA',
     SET_LOADING_STATE = 'user/SET_LOADING_STATE',
-    FETCH_SIGN_IN = 'user/FETCH_SIGN_IN'
+    FETCH_SIGN_IN = 'user/FETCH_SIGN_IN',
 }
 
 export interface SetUserInterface extends Action<UserActionsType> {
     type: UserActionsType.SET_USER_DATA,
-    payload: UserType
+    payload: AuthUserType
 }
 
 export interface SetLoadingStateInterface extends Action<UserActionsType> {
@@ -27,7 +27,7 @@ export interface FetchSignInInterface extends Action<UserActionsType> {
 }
 
 export const UserActions = {
-    setUser: (user: UserType): SetUserInterface => ({
+    setUser: (user: AuthUserType): SetUserInterface => ({
         type: UserActionsType.SET_USER_DATA,
         payload: user
     } as const),
@@ -42,7 +42,7 @@ export const UserActions = {
 }
 
 const initialState = {
-    user: undefined as unknown as UserType,
+    user: undefined as unknown as AuthUserType,
     loadingStatus: LoadingStatusEnum.NEVER as LoadingStatusEnum
 }
 
@@ -65,7 +65,7 @@ export const userReducer = produce((draft: Draft<UserStateType>, action: UserAct
         }
 
         case UserActionsType.FETCH_SIGN_IN: {
-            draft.user = undefined as unknown as UserType
+            draft.user = undefined as unknown as AuthUserType
             draft.loadingStatus = LoadingStatusEnum.LOADING
             break
         }

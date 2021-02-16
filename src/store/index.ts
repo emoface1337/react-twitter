@@ -4,13 +4,16 @@ import { tweetsReducer as tweets } from './ducks/tweets/tweets'
 import { themesReducer as themes } from './ducks/themes/themes'
 import { tweetReducer as tweet } from './ducks/tweet/tweet'
 import { userReducer as user } from './ducks/user/user'
+import { recommendedUsersReducer as recommendedUsers} from './ducks/recommendedUsers/recommendedUsers'
+
 import rootSaga from './sagas'
 
 const rootReducer = combineReducers({
     tweets,
     themes,
     tweet,
-    user
+    user,
+    recommendedUsers
 })
 
 type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never

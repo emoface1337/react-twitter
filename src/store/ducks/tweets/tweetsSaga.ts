@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import { AddingTweetStatusEnum, AddTweetInterface, TweetsActions, TweetsActionsType } from './tweets'
 import { TweetsApi, TweetType } from '../../../api/tweetsApi'
@@ -24,6 +24,6 @@ function* addTweet({ payload: text }: AddTweetInterface) {
 }
 
 export function* tweetsSaga() {
-    yield takeEvery(TweetsActionsType.FETCH_ITEMS, fetchTweetsRequest)
+    yield takeLatest(TweetsActionsType.FETCH_ITEMS, fetchTweetsRequest)
     yield takeEvery(TweetsActionsType.ADD_TWEET, addTweet)
 }

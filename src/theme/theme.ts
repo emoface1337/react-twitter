@@ -237,7 +237,10 @@ export const useHomeStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     tweetText: {
-        wordBreak: 'break-all'
+        wordBreak: 'break-all',
+        '& > a': {
+            textDecoration: 'none'
+        }
     },
     tweetActions: {
         paddingTop: '10px',
@@ -307,7 +310,6 @@ export const useHomeStyles = makeStyles((theme) => ({
         }
     },
     addTweetTextarea: {
-        // minHeight: '46px',
         lineHeight: '24px',
         border: 'none',
         fontSize: '19px',

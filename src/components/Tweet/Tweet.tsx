@@ -98,7 +98,7 @@ const Tweet: FC<Props> = ({ classes, tweet }): ReactElement => {
                             </Menu>
                         </div>
                     </Box>
-                    <Typography variant="body1" className={classes.tweetText}>
+                    <Typography variant="body1" className={classes.tweetText} component={'div'}>
                         <Linkify>{tweet.text}</Linkify>
                     </Typography>
                     <Box className={classes.tweetActions}>

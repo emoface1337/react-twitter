@@ -2,12 +2,14 @@ import React, { FC, ReactElement } from 'react'
 import { Avatar, Box, MenuItem, Popover, Typography } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { popoverPaperProps, useHomeStyles } from '../../theme/theme'
+import { AuthUserType } from '../../api/authApi'
 
 type Props = {
-    classes: ReturnType<typeof useHomeStyles>,
+    classes: ReturnType<typeof useHomeStyles>
+    currentUser: AuthUserType
 }
 
-const SideMenuProfile: FC<Props> = ({ classes }): ReactElement => {
+const SideMenuProfile: FC<Props> = ({ classes, currentUser }): ReactElement => {
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
@@ -24,11 +26,11 @@ const SideMenuProfile: FC<Props> = ({ classes }): ReactElement => {
     return (
         <>
             <Box className={classes.currentUser} onClick={handleUserClick}>
-                <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg"/>
+                <Avatar alt={currentUser.username} src={currentUser.avatarUrl}/>
                 <Box className={classes.currentUserContent}>
                     <Typography className={classes.fullTweetUser}>
-                        <b style={{ marginRight: '5px' }}>Nick Yung</b>
-                        <span style={{ color: 'rgb(91, 112, 131)' }}>@emoface7</span>
+                        <b style={{ marginRight: '5px' }}>{currentUser.fullname}</b>
+                        <span style={{ color: 'rgb(91, 112, 131)' }}>@{currentUser.username}</span>
                     </Typography>
                 </Box>
                 <MoreVertIcon/>

@@ -27,7 +27,7 @@ export interface FetchTweetInterface extends Action<TweetActionsType> {
     payload: string
 }
 
-export const tweetActions = {
+export const TweetActions = {
     setTweet: (tweet: TweetStateType['tweet']): SetTweetInterface => ({
         type: TweetActionsType.SET_TWEET,
         payload: tweet
@@ -48,7 +48,7 @@ const initialState = {
 }
 
 export type TweetStateType = typeof initialState
-type TweetActionTypes = InferActionsTypes<typeof tweetActions>
+type TweetActionTypes = InferActionsTypes<typeof TweetActions>
 
 export const tweetReducer = produce((draft: Draft<TweetStateType>, action: TweetActionTypes) => {
 

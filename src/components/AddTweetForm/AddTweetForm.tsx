@@ -16,12 +16,17 @@ import EmojiPicker from '../EmojiPicker/EmojiPicker'
 
 import { tweetsSelectors } from '../../store/ducks/tweets/selectors'
 import { TweetsActions } from '../../store/ducks/tweets/tweets'
+import { AuthUserType } from '../../api/authApi'
 
 const Alert = (props: AlertProps) => {
     return <MuiAlert elevation={0} variant="filled" {...props} />
 }
 
-const AddTweetForm: FC = (): ReactElement => {
+type Props = {
+    currentUser: AuthUserType
+}
+
+const AddTweetForm: FC<Props> = ({ currentUser }): ReactElement => {
 
     const classes = useHomeStyles()
 
@@ -86,8 +91,7 @@ const AddTweetForm: FC = (): ReactElement => {
         <Paper className={classes.addTweetMainWrapper} square variant="outlined">
             <Box className={classes.addTweetWrapper}>
                 <Box className={classes.addTweetAvatarBlock}>
-                    <Avatar alt="Max Verstappen"
-                            src="https://i.guim.co.uk/img/media/f466735dabf1b18ac31e0f0ad751c9b3e4ba7be6/0_0_5472_3283/master/5472.jpg?width=1020&quality=85&auto=format&fit=max&s=1752e02897f98c1c6a32d6ba2131716c"/>
+                    <Avatar alt={currentUser.username} src={currentUser.avatarUrl}/>
                 </Box>
                 <Box className={classes.addTweetContent}>
                     <TextareaAutosize

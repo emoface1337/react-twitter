@@ -1,15 +1,15 @@
 import { call, takeEvery, put } from 'redux-saga/effects'
-import { themesActions, ThemesActionsType } from './themes'
+import { ThemesActions, ThemesActionsType } from './themes'
 import { ThemesApi } from '../../../api/themesApi'
 import { LoadingStatusEnum } from '../../types'
 
 export function* fetchThemesRequest() {
     try {
         const data = yield call(ThemesApi.fetchThemes)
-        yield put(themesActions.setThemes(data))
+        yield put(ThemesActions.setThemes(data))
     }
     catch (e) {
-        yield put(themesActions.setLoadingState(LoadingStatusEnum.ERROR))
+        yield put(ThemesActions.setLoadingState(LoadingStatusEnum.ERROR))
     }
 }
 

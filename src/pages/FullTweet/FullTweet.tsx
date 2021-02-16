@@ -6,7 +6,7 @@ import Linkify from 'react-linkify'
 import { useHomeStyles } from '../../theme/theme'
 import { RootState } from '../../store'
 
-import { tweetActions } from '../../store/ducks/tweet/tweet'
+import { TweetActions } from '../../store/ducks/tweet/tweet'
 import { tweetIsLoadingSelector, tweetSelector } from '../../store/ducks/tweet/selectors'
 
 import { Avatar, Box, CircularProgress, IconButton, Typography } from '@material-ui/core'
@@ -36,7 +36,10 @@ const useFullTweetClasses = makeStyles(() => ({
     tweetText: {
         fontSize: '23px',
         lineHeight: '30.1833px',
-        wordBreak: 'break-all'
+        wordBreak: 'break-all',
+        '& a': {
+            textDecoration: 'none'
+        }
     },
     tweetInfo: {
         margin: '15px 0',
@@ -112,10 +115,10 @@ const FullTweet: FC = (): ReactElement | null => {
 
     useEffect(() => {
         if (id) {
-            dispatch(tweetActions.fetchTweet(id))
+            dispatch(TweetActions.fetchTweet(id))
         }
         return () => {
-            dispatch(tweetActions.setTweet(undefined))
+            dispatch(TweetActions.setTweet(undefined))
         }
     }, [dispatch, id])
 

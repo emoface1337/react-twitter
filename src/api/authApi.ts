@@ -1,7 +1,7 @@
 import { SignInFormData } from '../pages/Sign/SignInModal'
 import { axios } from '../core/axios'
 
-export type UserType = {
+export type AuthUserType = {
     _id?: string
     email: string
     fullname: string
@@ -13,6 +13,7 @@ export type UserType = {
     about?: string
     website?: string
     token: string | undefined
+    avatarUrl?: string
 }
 
 export type AuthResponseType = {
@@ -22,7 +23,7 @@ export type AuthResponseType = {
 
 export type GetMeResponseType = {
     status: string
-    data: UserType
+    data: AuthUserType
 }
 
 export const AuthApi = {

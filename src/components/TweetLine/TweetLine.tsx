@@ -12,12 +12,12 @@ type Props = {
     divider: boolean
 }
 
-const TweetLine: FC<Props> = ({ classes, divider }): ReactElement | null => {
+const TweetLine: FC<Props> = ({ classes, divider }): ReactElement => {
 
     const dispatch = useDispatch()
 
     const tweets = useSelector((state: RootState) => tweetsSelectors.tweetsSelector(state))
-    const isLoading = useSelector((state: RootState) => tweetsSelectors.isTweetsLoadingSelector(state))
+    const isLoaded = useSelector((state: RootState) => tweetsSelectors.isTweetsLoadedSelector(state))
 
     useEffect(() => {
         dispatch(TweetsActions.fetchTweets())
@@ -26,27 +26,23 @@ const TweetLine: FC<Props> = ({ classes, divider }): ReactElement | null => {
         }
     }, [dispatch])
 
-    if (isLoading) {
+    if (!isLoaded) {
         return (
             <Box className={classes.loadingWrapper}>
                 <CircularProgress variant="indeterminate" size="3rem"/>
             </Box>
         )
     }
-
-    if (tweets.length)
-        return (
-            <>
-                {
-                    divider ? <Box className={classes.tweetsDivider}/> : null
-                }
-                {
-                    tweets.map(tweet => <Tweet key={tweet._id} classes={classes} tweet={tweet}/>)
-                }
-            </>
-        )
-
-    return null
+    return (
+        <>
+            {
+                divider ? <Box className={classes.tweetsDivider}/> : null
+            }
+            {
+                tweets.map(tweet => <Tweet key={tweet._id} classes={classes} tweet={tweet}/>)
+            }
+        </>
+    )
 }
 
 export default TweetLine

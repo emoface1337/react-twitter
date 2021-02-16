@@ -50,7 +50,7 @@ const validationSchema = yup.object().shape({
     password: yup.string().min(6, 'Длина пароля меньше 6 символов').required('Введите пароль')
 })
 
-const SignInModal: FC<Props> = ({ open, onClose }): ReactElement => {
+const SignInModal: FC<Props> = ({ open, onClose}): ReactElement => {
 
     const classes = useStyles()
     const dispatch = useDispatch()

@@ -15,9 +15,11 @@ import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined'
 import AddTweetDialog from '../AddTweetDialog/AddTweetDialog'
 import AddTweetForm from '../AddTweetForm/AddTweetForm'
 import SideMenuProfile from '../SideMenuProfile/SideMenuProfile'
+import { AuthUserType } from '../../api/authApi'
 
 type Props = {
     classes: ReturnType<typeof useHomeStyles>
+    currentUser: AuthUserType
 }
 
 const MenuIcon = (Component: OverridableComponent<SvgIconTypeMap>) => {
@@ -35,7 +37,7 @@ const menuItems = [
     { title: 'Ещё', icon: MenuIcon(MoreHorizOutlinedIcon) }
 ]
 
-const SideMenu: FC<Props> = ({ classes }): ReactElement => {
+const SideMenu: FC<Props> = ({ classes, currentUser }): ReactElement => {
 
     const [visibleModal, setVisibleModal] = useState(false)
 
@@ -76,10 +78,10 @@ const SideMenu: FC<Props> = ({ classes }): ReactElement => {
                     Твитнуть
                 </Button>
                 <AddTweetDialog onClose={handleClose} visible={visibleModal}>
-                    <AddTweetForm/>
+                    <AddTweetForm currentUser={currentUser}/>
                 </AddTweetDialog>
             </Box>
-            <SideMenuProfile classes={classes}/>
+            <SideMenuProfile classes={classes} currentUser={currentUser}/>
         </Box>
     )
 }
