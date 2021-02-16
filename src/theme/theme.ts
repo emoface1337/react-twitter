@@ -307,6 +307,8 @@ export const useHomeStyles = makeStyles((theme) => ({
         }
     },
     addTweetTextarea: {
+        // minHeight: '46px',
+        lineHeight: '24px',
         border: 'none',
         fontSize: '19px',
         width: '100%',
