@@ -13,7 +13,7 @@ type ModalProps = {
 export const Modal: FC<ModalProps> = ({ title, children, visible = false, onClose }): ReactElement => {
 
     return (
-        <Dialog open={visible} onClose={onClose} maxWidth="xs" fullWidth={true}>
+        <Dialog open={visible} onClose={onClose} maxWidth="xs" fullWidth={true} keepMounted={true}>
             <DialogTitle id="form-dialog-title">
                 <IconButton aria-label="close" onClick={onClose} color="primary">
                     <CloseIcon/>

@@ -61,6 +61,9 @@ const RecommendedUsers: FC<Props> = ({ classes }) => {
 
     useEffect(() => {
         dispatch(RecommendedUsersActions.fetchUsers())
+        return () => {
+            dispatch(RecommendedUsersActions.setUsers([]))
+        }
     }, [dispatch])
 
     if (!isLoaded) {

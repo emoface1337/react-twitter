@@ -26,7 +26,7 @@ type Props = {
     currentUser: AuthUserType
 }
 
-const AddTweetForm: FC<Props> = ({ currentUser }): ReactElement => {
+const AddTweetForm: FC<Props> = ({ currentUser }): ReactElement | null => {
 
     const classes = useHomeStyles()
 

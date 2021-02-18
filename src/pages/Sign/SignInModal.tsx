@@ -8,13 +8,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Box, Button, CircularProgress, Fade, FormControl, TextField } from '@material-ui/core'
 
 import { UserActions } from '../../store/ducks/user/user'
-import { RootState } from '../../store'
-import { LoadingStatusEnum } from '../../store/types'
 
 import { makeStyles } from '@material-ui/core/styles'
 import CheckIcon from '@material-ui/icons/Check'
 
 import Modal from '../../components/Dialog/Dialog'
+import { selectErrorMessage, selectSignInError, selectSignInIsLoading, selectSignInIsSuccess } from '../../store/ducks/user/selectors'
 
 const useStyles = makeStyles((theme) => ({
     progressWrapper: {
@@ -50,13 +49,17 @@ const validationSchema = yup.object().shape({
     password: yup.string().min(6, 'Длина пароля меньше 6 символов').required('Введите пароль')
 })
 
-const SignInModal: FC<Props> = ({ open, onClose}): ReactElement => {
+const SignInModal: FC<Props> = ({ open, onClose }): ReactElement => {
 
     const classes = useStyles()
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const loadingStatus = useSelector((state: RootState) => state.user.loadingStatus)
+    const signInErrorMessage = useSelector(selectErrorMessage)
+
+    const signInError = useSelector(selectSignInError)
+    const signInSuccess = useSelector(selectSignInIsSuccess)
+    const signInLoading = useSelector(selectSignInIsLoading)
 
     const { handleSubmit, errors, control } = useForm<SignInFormData>(
         {
@@ -68,12 +71,13 @@ const SignInModal: FC<Props> = ({ open, onClose}): ReactElement => {
     })
 
     useEffect(() => {
-        if (loadingStatus === LoadingStatusEnum.LOADED) {
+        if (signInSuccess) {
             setTimeout(() => {
-                history.push('/home')
+                onClose()
+                // history.push('/home')
             }, 2000)
         }
-    }, [history, loadingStatus, onClose])
+    }, [history, onClose, signInSuccess])
 
     return (
         <Modal title="Войти в аккаунт" visible={open} onClose={onClose}>
@@ -81,7 +85,7 @@ const SignInModal: FC<Props> = ({ open, onClose}): ReactElement => {
                 <FormControl fullWidth>
                     <Controller name={'email'} control={control} defaultValue="" as={
                         <TextField
-                            style={{ marginBottom: 20 }}
+                            style={{ marginBottom: 10 }}
                             id="email"
                             label="Почта"
                             InputLabelProps={{
@@ -96,7 +100,7 @@ const SignInModal: FC<Props> = ({ open, onClose}): ReactElement => {
                 <FormControl fullWidth>
                     <Controller name={'password'} control={control} defaultValue="" as={
                         <TextField
-                            style={{ marginBottom: 20 }}
+                            style={{ marginBottom: 10 }}
                             id="password"
                             label="Пароль"
                             type="password"
@@ -109,25 +113,25 @@ const SignInModal: FC<Props> = ({ open, onClose}): ReactElement => {
                         />}
                     />
                 </FormControl>
-                <Button type="submit" color="primary" variant="contained" fullWidth>
+                <Button type="submit" color="primary" variant="contained" fullWidth
+                        disabled={signInLoading || signInSuccess}>
                     Войти
                 </Button>
             </form>
             {
-                loadingStatus === LoadingStatusEnum.LOADING &&
-                <Box className={classes.progressWrapper}><CircularProgress/></Box>
+                signInLoading && <Box className={classes.progressWrapper}><CircularProgress/></Box>
             }
             {
-                loadingStatus === LoadingStatusEnum.ERROR &&
-                <Fade in={loadingStatus === LoadingStatusEnum.ERROR} timeout={500}>
+                signInError && signInErrorMessage &&
+                <Fade in={signInError} timeout={500}>
                     <Box className={classes.progressWrapper}>
-                        Неверный логин или пароль
+                        {signInErrorMessage}
                     </Box>
                 </Fade>
             }
             {
-                loadingStatus === LoadingStatusEnum.LOADED &&
-                <Fade in={loadingStatus === LoadingStatusEnum.LOADED} timeout={2000}>
+                signInSuccess &&
+                <Fade in={signInSuccess} timeout={2000}>
                     <Box className={classes.progressWrapper}>
                         <Box className={classes.success}>
                             <CheckIcon style={{ color: '#fff' }}/>

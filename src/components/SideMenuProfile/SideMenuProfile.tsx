@@ -9,7 +9,7 @@ type Props = {
     currentUser: AuthUserType
 }
 
-const SideMenuProfile: FC<Props> = ({ classes, currentUser }): ReactElement => {
+const SideMenuProfile: FC<Props> = ({ classes, currentUser }): ReactElement | null => {
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 

@@ -6,7 +6,7 @@ import { RecommendedUsersApi } from '../../../api/recommendedUsersApi'
 export function* fetchUsersRequest() {
     try {
         const data = yield call(RecommendedUsersApi.fetchUsers)
-        yield put(RecommendedUsersActions.setUsers(data))
+        yield put(RecommendedUsersActions.setUsers(data.users))
     } catch (e) {
         console.log(e)
         yield put(RecommendedUsersActions.setLoadingState(LoadingStatusEnum.ERROR))

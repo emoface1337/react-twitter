@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from 'react'
+import React, { FC, ReactElement, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { Button, makeStyles, Typography } from '@material-ui/core'
@@ -11,7 +11,6 @@ import SignInModal from './SignInModal'
 import SignUpModal from './SignUpModal'
 
 import { UserActions } from '../../store/ducks/user/user'
-import { LoadingStatusEnum } from '../../store/types'
 
 const useStyles = makeStyles(() => ({
         wrapper: {
@@ -95,8 +94,14 @@ const Sign: FC = (): ReactElement => {
 
     const handleClose = (): void => {
         setVisibleModal(undefined)
-        dispatch(UserActions.setLoadingState(LoadingStatusEnum.NEVER))
     }
+
+    useEffect(() => {
+        return () => {
+            visibleModal === 'signIn' && dispatch(UserActions.setSignInFetchError(false))
+            visibleModal === 'signUp' && dispatch(UserActions.setSignUpFetchError(false))
+        }
+    }, [dispatch, visibleModal])
 
     return (
         <div className={classes.wrapper}>

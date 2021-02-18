@@ -15,15 +15,17 @@ import RecommendedUsers from '../components/RecommendedUsers/RecommendedUsers'
 import BackButton from '../components/BackButton/BackButton'
 import FullTweet from './FullTweet/FullTweet'
 import TweetLine from '../components/TweetLine/TweetLine'
-
-import { RootState } from '../store'
 import { selectUser } from '../store/ducks/user/selectors'
 
 const Home: FC = (): ReactElement => {
 
     const dispatch = useDispatch()
     const classes = useHomeStyles()
-    const currentUser = useSelector((state: RootState) => selectUser(state))
+    const currentUser = {
+        username: 'dasdas',
+        fullname: 'loh 2',
+        email: 'kek@mail.ru'
+    }
 
     useEffect(() => {
         dispatch(TweetsActions.fetchTweets())
