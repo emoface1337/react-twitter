@@ -41,6 +41,7 @@ const App = () => {
         }
     }, [dispatch, history, isAuth, isReady])
 
+    console.log(loadingStatus, isReady)
     if (!isReady) {
         return (
             <Box className={classes.loadingWrapper}>

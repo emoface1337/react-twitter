@@ -20,7 +20,13 @@ export enum UserActionsType {
     SET_FETCH_ERROR = 'user/SET_FETCH_ERROR',
 
     SET_SIGN_IN_FETCH_ERROR = 'user/SET_SIGN_IN_FETCH_ERROR',
-    SET_SIGN_UP_FETCH_ERROR = 'user/SET_SIGN_UP_FETCH_ERROR'
+    SET_SIGN_UP_FETCH_ERROR = 'user/SET_SIGN_UP_FETCH_ERROR',
+
+    LOG_OUT = 'user/LOG_OUT'
+}
+
+export interface LogOutInterface extends Action<UserActionsType> {
+    type: UserActionsType.LOG_OUT
 }
 
 export interface SetSignInFetchError extends Action<UserActionsType> {
@@ -73,6 +79,10 @@ export interface FetchSignUpInterface extends Action<UserActionsType> {
 }
 
 export const UserActions = {
+
+    logOut: (): LogOutInterface => ({
+        type: UserActionsType.LOG_OUT
+    }),
 
     setSignInFetchError: (error: boolean): SetSignInFetchError => ({
         type: UserActionsType.SET_SIGN_IN_FETCH_ERROR,
@@ -167,7 +177,7 @@ export const userReducer = produce((draft: Draft<UserStateType>, action: UserAct
             break
         }
 
-         case UserActionsType.SET_SIGN_UP_LOADING_STATUS: {
+        case UserActionsType.SET_SIGN_UP_LOADING_STATUS: {
             draft.signUpLoadingStatus = action.payload
             break
         }

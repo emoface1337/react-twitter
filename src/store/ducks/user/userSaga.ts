@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { FetchSignInInterface, FetchSignUpInterface, UserActions, UserActionsType } from './user'
 import { LoadingStatusEnum } from '../../types'
-import { AuthApi } from '../../../api/authApi'
+import { AuthApi, AuthUserType } from '../../../api/authApi'
 
 export function* fetchSignInRequest({ payload: formData }: FetchSignInInterface) {
     try {
@@ -41,8 +41,16 @@ export function* fetchSignUpRequest({ payload: formData }: FetchSignUpInterface)
     }
 }
 
+export function* logOut() {
+    yield put(UserActions.setSignInLoadingStatus(LoadingStatusEnum.NEVER))
+    yield put(UserActions.setSignUpLoadingStatus(LoadingStatusEnum.NEVER))
+    yield put(UserActions.setUser(undefined as unknown as AuthUserType))
+    window.localStorage.removeItem('token')
+}
+
 export function* userSaga() {
     yield takeLatest(UserActionsType.FETCH_SIGN_IN, fetchSignInRequest)
     yield takeLatest(UserActionsType.FETCH_SIGN_UP, fetchSignUpRequest)
     yield takeLatest(UserActionsType.FETCH_USER_DATA, fetchUserDataRequest)
+    yield takeLatest(UserActionsType.LOG_OUT, logOut)
 }
