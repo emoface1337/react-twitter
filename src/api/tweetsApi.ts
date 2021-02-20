@@ -1,14 +1,11 @@
 import { axios } from '../core/axios'
+import { AuthUserType } from './authApi'
 
 export type TweetType = {
     id?: string
     _id: string
     text: string
-    user: {
-        fullname: string
-        username: string
-        avatarUrl: string
-    }
+    user: AuthUserType
     createdAt: string
 }
 

@@ -78,7 +78,7 @@ const SideMenu: FC<Props> = ({ classes, currentUser }): ReactElement => {
                     Твитнуть
                 </Button>
                 <AddTweetDialog onClose={handleClose} visible={visibleModal}>
-                    <AddTweetForm currentUser={currentUser}/>
+                    <AddTweetForm currentUser={currentUser} sideMenuClose={handleClose}/>
                 </AddTweetDialog>
             </Box>
             <SideMenuProfile classes={classes} currentUser={currentUser}/>

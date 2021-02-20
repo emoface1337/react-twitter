@@ -5,7 +5,7 @@ import { useHomeStyles } from '../theme/theme'
 // import { themesActions } from '../store/ducks/themes/themes'
 import { Route } from 'react-router-dom'
 
-import { Box, Container, Typography, Grid, Paper } from '@material-ui/core'
+import { Box, Container, Typography, Grid, Paper, CircularProgress } from '@material-ui/core'
 
 import AddTweetForm from '../components/AddTweetForm/AddTweetForm'
 import SearchForm from '../components/SearchForm/SearchForm'
@@ -21,11 +21,8 @@ const Home: FC = (): ReactElement => {
 
     const dispatch = useDispatch()
     const classes = useHomeStyles()
-    const currentUser = {
-        username: 'dasdas',
-        fullname: 'loh 2',
-        email: 'kek@mail.ru'
-    }
+
+    const currentUser = useSelector(selectUser)
 
     useEffect(() => {
         dispatch(TweetsActions.fetchTweets())
@@ -33,6 +30,14 @@ const Home: FC = (): ReactElement => {
             dispatch(TweetsActions.setTweets([]))
         }
     }, [dispatch])
+
+    if (!currentUser) {
+        return (
+            <Box className={classes.loadingWrapper}>
+                <CircularProgress variant="indeterminate" size="3rem"/>
+            </Box>
+        )
+    }
 
     return (
         <Container maxWidth="lg" component="main">

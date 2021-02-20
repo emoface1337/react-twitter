@@ -9,15 +9,11 @@ import { UserActions } from './store/ducks/user/user'
 import { selectFetchUserDataLoadingStatus, selectIsAuth } from './store/ducks/user/selectors'
 import { LoadingStatusEnum } from './store/types'
 
-import { Box, CircularProgress } from '@material-ui/core'
-import { useHomeStyles } from './theme/theme'
-
 //TODO:
 // 1. fix linkify tweet
+// 2. fix adding status when adding tweet by button on side menu
 
 const App = () => {
-
-    const classes = useHomeStyles()
 
     const history = useHistory()
     const dispatch = useDispatch()
@@ -40,15 +36,6 @@ const App = () => {
             history.push('/home')
         }
     }, [dispatch, history, isAuth, isReady])
-
-    console.log(loadingStatus, isReady)
-    if (!isReady) {
-        return (
-            <Box className={classes.loadingWrapper}>
-                <CircularProgress variant="indeterminate" size="3rem"/>
-            </Box>
-        )
-    }
 
     return (
         <div className="App">

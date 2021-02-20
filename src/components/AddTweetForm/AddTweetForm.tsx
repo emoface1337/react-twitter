@@ -23,10 +23,11 @@ const Alert = (props: AlertProps) => {
 }
 
 type Props = {
-    currentUser: AuthUserType
+    currentUser: AuthUserType,
+    sideMenuClose?: () => void
 }
 
-const AddTweetForm: FC<Props> = ({ currentUser }): ReactElement | null => {
+const AddTweetForm: FC<Props> = ({ currentUser, sideMenuClose }): ReactElement | null => {
 
     const classes = useHomeStyles()
 
@@ -57,6 +58,10 @@ const AddTweetForm: FC<Props> = ({ currentUser }): ReactElement | null => {
 
     const handleAddTweetClick = (): void => {
         dispatch(TweetsActions.addTweet(textareaValue))
+        if (sideMenuClose) {
+            if (isTweetAddingSuccess)
+                sideMenuClose()
+        }
     }
 
     const handlePopoverOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
